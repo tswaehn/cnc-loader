@@ -1,0 +1,4 @@
+glob:*.~*
+glob:.sbas
+glob:*.dcu
+glob:changelog.txt
