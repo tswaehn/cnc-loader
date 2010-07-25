@@ -9,7 +9,7 @@ type
   TFileVersion = array[1..4] of Smallint;
 
 function GetExeVersion(FileName: string): TFileVersion;
-function GetExeVersionStr(FileName: string): String;
+function GetExeVersionStr(FileName: string): string;
 
 implementation
 
@@ -47,15 +47,17 @@ begin
   FreeMem(VerInfo, VerInfoSize);
 end;
 
-function GetExeVersionStr(FileName: string): String;
-var ver:TFileVersion;
-    ver_str: string;
+function GetExeVersionStr(FileName: string): string;
+var
+  ver: TFileVersion;
+  ver_str: string;
 begin
   ver := GetExeVersion(filename);
 
-  ver_str := IntToStr( ver[1] ) + '.' + IntToStr( ver[2] ) + '.' + IntToStr( ver[3] ) + '.' + IntToStr( ver[4] );
+  ver_str := IntToStr(ver[1]) + '.' + IntToStr(ver[2]) + '.' + IntToStr(ver[3])
+    +
+    '.' + IntToStr(ver[4]);
   GetExeVersionStr := ver_str;
 end;
-
 
 end.

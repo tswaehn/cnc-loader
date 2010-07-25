@@ -33,8 +33,8 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Load_defaults(Typ:string);
-    procedure Save_defaults(Typ:string);
+    procedure Load_defaults(Typ: string);
+    procedure Save_defaults(Typ: string);
   private
     { Private-Deklarationen }
   public
@@ -48,51 +48,51 @@ implementation
 
 uses main;
 
-
-
 {$R *.DFM}
 
-procedure TComSettings.Load_Defaults(Typ:string);
+procedure TComSettings.Load_Defaults(Typ: string);
 begin
-if length(typ)<= 0 then typ:='Standard';
-label1.Caption:=typ;
-cbPort.itemindex:=Form1.Inifile.Readinteger(Typ,'Port',0);
-cbBaud.itemindex:=Form1.Inifile.Readinteger(Typ,'Baudrate',0);
-cbDatabits.itemindex:=Form1.Inifile.Readinteger(Typ,'Databits',0);
-cbDTR.itemindex:=Form1.Inifile.Readinteger(Typ,'Dtr',0);
-cbRTS.itemindex:=Form1.Inifile.Readinteger(Typ,'Rts',0);
-cbParity.itemindex:=Form1.Inifile.Readinteger(Typ,'Parity',0);
-cbFlowControl.itemindex:=Form1.Inifile.Readinteger(Typ,'FlowControl',0);
-cbStopBits.itemindex:=Form1.Inifile.Readinteger(Typ,'StopBits',0);
+  if length(typ) <= 0 then
+    typ := 'Standard';
+  label1.Caption := typ;
+  cbPort.itemindex := Form1.Inifile.Readinteger(Typ, 'Port', 0);
+  cbBaud.itemindex := Form1.Inifile.Readinteger(Typ, 'Baudrate', 0);
+  cbDatabits.itemindex := Form1.Inifile.Readinteger(Typ, 'Databits', 0);
+  cbDTR.itemindex := Form1.Inifile.Readinteger(Typ, 'Dtr', 0);
+  cbRTS.itemindex := Form1.Inifile.Readinteger(Typ, 'Rts', 0);
+  cbParity.itemindex := Form1.Inifile.Readinteger(Typ, 'Parity', 0);
+  cbFlowControl.itemindex := Form1.Inifile.Readinteger(Typ, 'FlowControl', 0);
+  cbStopBits.itemindex := Form1.Inifile.Readinteger(Typ, 'StopBits', 0);
 end;
 
-procedure TComSettings.Save_Defaults(Typ:string);
+procedure TComSettings.Save_Defaults(Typ: string);
 begin
-if length(typ)<= 0 then typ:='Standard';
-Form1.Inifile.writeinteger(Typ,'Port',cbPort.Itemindex);
-Form1.Inifile.writeinteger(Typ,'Baudrate',cbBaud.Itemindex);
-Form1.Inifile.writeinteger(Typ,'Databits',cbDatabits.Itemindex);
-Form1.Inifile.writeinteger(Typ,'Dtr',cbDTR.Itemindex);
-Form1.Inifile.writeinteger(Typ,'Rts',cbRTS.Itemindex);
-Form1.Inifile.writeinteger(Typ,'Parity',cbParity.Itemindex);
-Form1.Inifile.writeinteger(Typ,'FlowControl',cbFlowControl.Itemindex);
-Form1.Inifile.writeinteger(Typ,'StopBits',cbStopBits.Itemindex);
+  if length(typ) <= 0 then
+    typ := 'Standard';
+  Form1.Inifile.writeinteger(Typ, 'Port', cbPort.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'Baudrate', cbBaud.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'Databits', cbDatabits.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'Dtr', cbDTR.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'Rts', cbRTS.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'Parity', cbParity.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'FlowControl', cbFlowControl.Itemindex);
+  Form1.Inifile.writeinteger(Typ, 'StopBits', cbStopBits.Itemindex);
 end;
 
 procedure TComSettings.SpeedButton1Click(Sender: TObject);
 begin
-save_defaults(Form1.Settings_for);
-Modalresult:=MrOK;
+  save_defaults(Form1.Settings_for);
+  Modalresult := MrOK;
 end;
 
 procedure TComSettings.SpeedButton2Click(Sender: TObject);
 begin
-Modalresult:=MrCancel;
+  Modalresult := MrCancel;
 end;
 
 procedure TComSettings.FormShow(Sender: TObject);
 begin
-load_defaults(Form1.Settings_For);
+  load_defaults(Form1.Settings_For);
 end;
 
 end.

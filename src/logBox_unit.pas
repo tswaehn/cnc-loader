@@ -26,7 +26,7 @@ type
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
-    procedure log( text : string );
+    procedure log(text: string);
   end;
 
 var
@@ -36,23 +36,23 @@ implementation
 
 {$R *.dfm}
 
-procedure TLogBox.log( text: string );
+procedure TLogBox.log(text: string);
 begin
   // lösche zeilen, wenn zu viele zeilen
-  if (listbox1.Items.Count > 2000) then begin
+  if (listbox1.Items.Count > 2000) then
+  begin
     while (listbox1.Items.count > 1000) do
-     begin
-       listbox1.Items.Delete(0);
+    begin
+      listbox1.Items.Delete(0);
     end;
   end;
 
-  listbox1.Items.Add( text );
-  listbox1.ItemIndex := listbox1.Items.count-1;
+  listbox1.Items.Add(text);
+  listbox1.ItemIndex := listbox1.Items.count - 1;
   //listbox1.DeleteSelected;
   //listbox1.Selected[listbox1.Items.Count] := true;
 
 end;
-
 
 procedure TLogBox.SpeedButton1Click(Sender: TObject);
 begin

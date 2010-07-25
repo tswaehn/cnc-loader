@@ -30,7 +30,7 @@ type
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
-    filename:string;
+    filename: string;
   end;
 
 var
@@ -40,46 +40,52 @@ implementation
 
 uses main, OpenProg_unit;
 
-
-
 {$R *.DFM}
 
 procedure TSpeichern.lade_daten;
-var sr:TSearchRec;result:word;
+var
+  sr: TSearchRec;
+  result: word;
 begin
-listbox1.clear;
-label1.caption:=form1.typ;
-label2.caption:=form1.inifile.readstring('Verzeichnisse','Verzeichnis'+inttostr(form1.typ_index),'c:\');
-label3.caption:=form1.inifile.readstring('Verzeichnisse','Extension'+inttostr(form1.typ_index),'*.LOG');
-if label2.caption='' then label2.caption:='C:\';
-if label3.caption='' then label3.caption:='*.LOG';
-result:=FindFirst(label2.caption+label3.caption, faAnyFile, sr);
-while result = 0 do
-   begin
-   listbox1.items.add(Open.UPStr(sr.Name));
-   result:=findnext(sr);
-   end;
-edit1.text:='';
+  listbox1.clear;
+  label1.caption := form1.typ;
+  label2.caption := form1.inifile.readstring('Verzeichnisse', 'Verzeichnis' +
+    inttostr(form1.typ_index), 'c:\');
+  label3.caption := form1.inifile.readstring('Verzeichnisse', 'Extension' +
+    inttostr(form1.typ_index), '*.LOG');
+  if label2.caption = '' then
+    label2.caption := 'C:\';
+  if label3.caption = '' then
+    label3.caption := '*.LOG';
+  result := FindFirst(label2.caption + label3.caption, faAnyFile, sr);
+  while result = 0 do
+  begin
+    listbox1.items.add(Open.UPStr(sr.Name));
+    result := findnext(sr);
+  end;
+  edit1.text := '';
 end;
 
 procedure TSpeichern.SpeedButton2Click(Sender: TObject);
 begin
-modalresult:=mrcancel;
+  modalresult := mrcancel;
 end;
 
 procedure TSpeichern.FormShow(Sender: TObject);
 begin
-lade_daten;
+  lade_daten;
 end;
 
 procedure TSpeichern.SpeedButton1Click(Sender: TObject);
-var endung:string;punkt_pos:integer;
+var
+  endung: string;
+  punkt_pos: integer;
 begin
-endung:=label3.caption;
-punkt_pos:=pos('.',endung);
-delete(endung,1,punkt_pos-1);
-filename:=label2.caption+edit1.text+endung;
-modalresult:=mrok;
+  endung := label3.caption;
+  punkt_pos := pos('.', endung);
+  delete(endung, 1, punkt_pos - 1);
+  filename := label2.caption + edit1.text + endung;
+  modalresult := mrok;
 end;
 
 end.

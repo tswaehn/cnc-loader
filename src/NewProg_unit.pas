@@ -31,16 +31,21 @@ implementation
 {$R *.DFM}
 
 procedure TNeu.SpeedButton1Click(Sender: TObject);
-var zahl, code:integer;
+var
+  zahl, code: integer;
 begin
-val(edit1.text,zahl,code);
-if code = 0 then modalresult:=mrok else Messagedlg('Für Programmnummer sind nur Ziffern erlaubt.',mterror,[mbok],0);
+  val(edit1.text, zahl, code);
+  if code = 0 then
+    modalresult := mrok
+  else
+    Messagedlg('Für Programmnummer sind nur Ziffern erlaubt.', mterror, [mbok],
+      0);
 end;
 
 procedure TNeu.FormShow(Sender: TObject);
 begin
-edit1.text:='0000';
-edit2.text:='Unbenannt';
+  edit1.text := '0000';
+  edit2.text := 'Unbenannt';
 end;
 
 end.

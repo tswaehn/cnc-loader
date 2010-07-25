@@ -21,7 +21,7 @@ type
     Edit1: TEdit;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
-    function check_extension:boolean;
+    function check_extension: boolean;
   private
     { Private-Deklarationen }
   public
@@ -35,25 +35,40 @@ implementation
 
 {$R *.DFM}
 
-function TDirectory.Check_extension:boolean;
-var is_punkt,richtige_laenge,sternchen:boolean;
+function TDirectory.Check_extension: boolean;
+var
+  is_punkt, richtige_laenge, sternchen: boolean;
 begin
-if (pos('.',edit1.text)>0) then is_punkt:=true else is_punkt:=false;
-if ( length(edit1.text)-pos('.',edit1.text)=3)and(pos('.',edit1.text)=2) then richtige_laenge:=true else richtige_laenge:=false;
-if (pos('*',edit1.text)>0) then sternchen:=true else sternchen:=false;
-if is_punkt and richtige_laenge
-   and sternchen then check_extension:=true
-                 else Messagedlg('Die Dateierweiterung hat ein falsches Format.',mterror,[mbok],0);
+  if (pos('.', edit1.text) > 0) then
+    is_punkt := true
+  else
+    is_punkt := false;
+  if (length(edit1.text) - pos('.', edit1.text) = 3) and (pos('.', edit1.text) =
+    2) then
+    richtige_laenge := true
+  else
+    richtige_laenge := false;
+  if (pos('*', edit1.text) > 0) then
+    sternchen := true
+  else
+    sternchen := false;
+  if is_punkt and richtige_laenge
+    and sternchen then
+    check_extension := true
+  else
+    Messagedlg('Die Dateierweiterung hat ein falsches Format.', mterror, [mbok],
+      0);
 end;
 
 procedure TDirectory.SpeedButton1Click(Sender: TObject);
 begin
-if check_extension then modalresult:=mrok;
+  if check_extension then
+    modalresult := mrok;
 end;
 
 procedure TDirectory.SpeedButton2Click(Sender: TObject);
 begin
-modalresult:=mrcancel;
+  modalresult := mrcancel;
 end;
 
 end.
