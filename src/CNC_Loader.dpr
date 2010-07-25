@@ -11,7 +11,9 @@ uses
   DirList_unit in 'DirList_unit.pas' {Directory},
   OpenProg_unit in 'OpenProg_unit.pas' {Open},
   PrintProg_unit in 'PrintProg_unit.pas' {Drucken},
-  SaveProg_unit in 'SaveProg_unit.pas' {Speichern};
+  SaveProg_unit in 'SaveProg_unit.pas' {Speichern},
+  logBox_unit in 'logBox_unit.pas' {LogBox},
+  versioninfo in 'versioninfo.pas';
 
 {$R *.RES}
 
@@ -27,5 +29,6 @@ begin
   Application.CreateForm(TOpen, Open);
   Application.CreateForm(TDrucken, Drucken);
   Application.CreateForm(TSpeichern, Speichern);
+  Application.CreateForm(TLogBox, LogBox);
   Application.Run;
 end.

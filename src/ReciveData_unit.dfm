@@ -51,6 +51,13 @@ object Recive: TRecive
     Left = 136
     Top = 264
   end
+  object Label1: TLabel
+    Left = 400
+    Top = 192
+    Width = 32
+    Height = 13
+    Caption = 'Label1'
+  end
   object Memo1: TMemo
     Left = 16
     Top = 16

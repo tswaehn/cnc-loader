@@ -4,18 +4,18 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  FileCtrl, StdCtrls, RXCtrls, Buttons, ExtCtrls;
+  FileCtrl, StdCtrls, Buttons, ExtCtrls;
 
 type
   TDirectory = class(TForm)
-    RxLabel1: TRxLabel;
+    //RxLabel1: TRxLabel;
     Label1: TLabel;
     DirectoryListBox1: TDirectoryListBox;
     FileListBox1: TFileListBox;
     DriveComboBox1: TDriveComboBox;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    RxLabel2: TRxLabel;
+    //RxLabel2: TRxLabel;
     Label2: TLabel;
     Bevel1: TBevel;
     Edit1: TEdit;

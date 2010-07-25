@@ -4,22 +4,24 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, Gauges, Led, RXCtrls, StdCtrls, ExtCtrls;
+  Buttons, Gauges, Led,  StdCtrls, ExtCtrls;
 
 type
   TSend = class(TForm)
     Gauge1: TGauge;
     SpeedButton1: TSpeedButton;
     OpenLED: TLED;
-    RxLabel1: TRxLabel;
+    //RxLabel1: TRxLabel;
     SpeedButton2: TSpeedButton;
-    RxLabel2: TRxLabel;
+    //RxLabel2: TRxLabel;
     Label1: TLabel;
-    RxLabel3: TRxLabel;
+    //RxLabel3: TRxLabel;
     Label2: TLabel;
     Bevel1: TBevel;
-    RxLabel4: TRxLabel;
-    RxLabel5: TRxLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    //RxLabel4: TRxLabel;
+    //RxLabel5: TRxLabel;
     procedure FormShow(Sender: TObject);
     procedure sende;
     procedure SpeedButton2Click(Sender: TObject);
@@ -32,6 +34,7 @@ type
     function TransFormStandard(OutStr:string):string;
   private
     { Private-Deklarationen }
+    senden_aktiv:boolean;
   public
     { Public-Deklarationen }
   end;
@@ -41,9 +44,12 @@ var
 
 implementation
 
-uses CNC1;
+uses main;
 
 {$R *.DFM}
+
+const msg_abgebrochen : string = 'Senden abgebrochen';
+
 function TSend.TransFormStandard(OutStr:string):String;
 begin
 outstr:='%'+#13+#10+outstr+'%'+#13+#10;
@@ -111,23 +117,33 @@ var a:integer;
     result_1,result_2:integer;
     aus:String;
     ch:char;
-    swap:file of char;
+    swap:textfile;
 begin
+
 aus:=form1.edit.text;        // Lade AusgabeString
 aus:=transform(aus,form1.typ);         // Konvertiere AusgabeString
 assignfile(swap,'Output.txt');
 rewrite(swap);
 gauge1.maxvalue:=length(aus);          //
+
+senden_aktiv := true;
 for a:=1 to length(aus) do             //
    begin
    ch:=(aus[a]);                            //  Ausgeben von  AusgabeString -Zeichenweise
-   form1.vacomm1.writechar(ch);    //
-   rxlabel4.caption:=inttostr(form1.vacomm1.ReadBufSize);
-   rxlabel5.caption:=inttostr(form1.vacomm1.writeBufSize);
-   send.refresh;
+
+   form1.sendChar( ch );
+   application.ProcessMessages;
    write(swap,ch);
    gauge1.progress:=a;                 //
+   if not senden_aktiv  then begin
+    messagedlg(msg_abgebrochen, mtError,[mbok], 0);
+    writeln(swap, '' );
+    writeln(swap, msg_abgebrochen );
+    break;
    end;
+
+   end;
+senden_aktiv := true;
 closefile(swap);
 end;
 
@@ -137,11 +153,14 @@ label1.caption:=form1.typ;
 label2.caption:=form1.programm_name;
 gauge1.Progress:=0;
 form1.schalte_an;
+senden_aktiv := false;
 end;
 
 procedure TSend.SpeedButton2Click(Sender: TObject);
 begin
+speedbutton2.enabled := false;
 sende;
+speedbutton2.Enabled := true;
 end;
 
 procedure TSend.FormHide(Sender: TObject);
@@ -151,7 +170,8 @@ end;
 
 procedure TSend.SpeedButton1Click(Sender: TObject);
 begin
-modalresult:=mrCancel;
+  senden_aktiv := false;
+  modalresult:=mrCancel;
 end;
 
 end.

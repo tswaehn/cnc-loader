@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, Led, RXCtrls, Buttons, StdCtrls, RXSwitch, Animate, GIFCtrl,
+  ExtCtrls, Led, Buttons, StdCtrls,
   ComCtrls;
 
 type
@@ -12,16 +12,17 @@ type
     Memo1: TMemo;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    RxLabel1: TRxLabel;
+    //RxLabel1: TRxLabel;
     rxLed: TLED;
     led_timer: TTimer;
     OpenLED: TLED;
-    RxLabel2: TRxLabel;
-    RxLabel3: TRxLabel;
+    //RxLabel2: TRxLabel;
+    //RxLabel3: TRxLabel;
     ereignis_led: TLED;
-    RxLabel4: TRxLabel;
+    //RxLabel4: TRxLabel;
     StatusBar1: TStatusBar;
     ereignis_timer: TTimer;
+    Label1: TLabel;
     procedure led_timerTimer(Sender: TObject);
     procedure empfang;
     procedure Daten_In;
@@ -46,7 +47,8 @@ var
 
 implementation
 
-uses CNC1;
+uses main;
+
 
 {$R *.DFM}
 
@@ -112,7 +114,7 @@ end;
 procedure TRecive.FormShow(Sender: TObject);
 begin
 form1.inbuf:='';
-rxlabel3.caption:='0';
+label1.caption:='0';
 memo1.clear;
 form1.schalte_an;
 end;

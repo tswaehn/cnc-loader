@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, Grids, StdCtrls, Mask, ToolEdit;
+  Buttons, Grids, StdCtrls, Mask;
+  //, ToolEdit;
 
 type
   TProgVerzeichnisse = class(TForm)
@@ -31,7 +32,9 @@ var
 
 implementation
 
-uses CNC7, CNC1;
+uses main, DirList_unit;
+
+
 
 {$R *.DFM}
 

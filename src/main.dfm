@@ -4,8 +4,8 @@ object Form1: TForm1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'CNC'
-  ClientHeight = 427
-  ClientWidth = 632
+  ClientHeight = 422
+  ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,19 +15,20 @@ object Form1: TForm1
   Menu = MainMenu1
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   OnHide = FormHide
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
-    Left = 472
-    Top = 0
+    Left = 633
+    Top = 8
     Width = 153
     Height = 281
   end
   object Image1: TImage
-    Left = 504
-    Top = 296
+    Left = 672
+    Top = 298
     Width = 71
     Height = 79
     AutoSize = True
@@ -570,15 +571,15 @@ object Form1: TForm1
       FFFFFFFFFFFFFF000000}
   end
   object Bevel2: TBevel
-    Left = 504
-    Top = 296
+    Left = 672
+    Top = 298
     Width = 71
     Height = 81
   end
   object edit: TMemo
     Left = 8
-    Top = 0
-    Width = 457
+    Top = 8
+    Width = 609
     Height = 377
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -592,8 +593,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 408
-    Width = 632
+    Top = 403
+    Width = 794
     Height = 19
     Panels = <
       item
@@ -610,11 +611,10 @@ object Form1: TForm1
         Text = 'Ver. 2.01'
         Width = 50
       end>
-    ExplicitTop = 388
   end
   object RadioButton1: TRadioButton
-    Left = 480
-    Top = 8
+    Left = 642
+    Top = 16
     Width = 113
     Height = 17
     Caption = 'TND200'
@@ -630,8 +630,8 @@ object Form1: TForm1
     OnClick = RadioButton1Click
   end
   object RadioButton2: TRadioButton
-    Left = 480
-    Top = 32
+    Left = 642
+    Top = 40
     Width = 129
     Height = 17
     Caption = 'TNS3042D'
@@ -645,8 +645,8 @@ object Form1: TForm1
     OnClick = RadioButton2Click
   end
   object RadioButton3: TRadioButton
-    Left = 480
-    Top = 56
+    Left = 642
+    Top = 64
     Width = 137
     Height = 17
     Caption = 'MIYANO BNE51S'
@@ -660,8 +660,8 @@ object Form1: TForm1
     OnClick = RadioButton3Click
   end
   object RadioButton4: TRadioButton
-    Left = 480
-    Top = 80
+    Left = 642
+    Top = 88
     Width = 113
     Height = 17
     Caption = 'INDEX ABC'
@@ -675,8 +675,8 @@ object Form1: TForm1
     OnClick = RadioButton4Click
   end
   object RadioButton5: TRadioButton
-    Left = 480
-    Top = 104
+    Left = 642
+    Top = 112
     Width = 137
     Height = 17
     Caption = 'STAR RNC16B'
@@ -690,8 +690,8 @@ object Form1: TForm1
     OnClick = RadioButton5Click
   end
   object RadioButton6: TRadioButton
-    Left = 480
-    Top = 128
+    Left = 642
+    Top = 136
     Width = 129
     Height = 17
     Caption = 'STAR SR16'
@@ -705,8 +705,8 @@ object Form1: TForm1
     OnClick = RadioButton6Click
   end
   object RadioButton9: TRadioButton
-    Left = 480
-    Top = 200
+    Left = 642
+    Top = 208
     Width = 113
     Height = 17
     Caption = 'STAR SV32'
@@ -720,8 +720,8 @@ object Form1: TForm1
     OnClick = RadioButton9Click
   end
   object RadioButton8: TRadioButton
-    Left = 480
-    Top = 176
+    Left = 642
+    Top = 184
     Width = 113
     Height = 17
     Caption = 'STAR SW7'
@@ -735,8 +735,8 @@ object Form1: TForm1
     OnClick = RadioButton8Click
   end
   object RadioButton10: TRadioButton
-    Left = 480
-    Top = 224
+    Left = 642
+    Top = 232
     Width = 113
     Height = 17
     Caption = 'OKUMA LB9'
@@ -750,8 +750,8 @@ object Form1: TForm1
     OnClick = RadioButton10Click
   end
   object RadioButton11: TRadioButton
-    Left = 480
-    Top = 248
+    Left = 642
+    Top = 256
     Width = 129
     Height = 17
     Caption = 'OKUMA LT10M'
@@ -765,8 +765,8 @@ object Form1: TForm1
     OnClick = RadioButton11Click
   end
   object RadioButton7: TRadioButton
-    Left = 480
-    Top = 152
+    Left = 642
+    Top = 160
     Width = 121
     Height = 17
     Caption = 'STAR SR20 R'
@@ -780,8 +780,8 @@ object Form1: TForm1
     OnClick = RadioButton7Click
   end
   object MainMenu1: TMainMenu
-    Left = 520
-    Top = 320
+    Left = 640
+    Top = 290
     object Exit1: TMenuItem
       Caption = 'Exit'
       OnClick = Exit1Click
@@ -839,6 +839,13 @@ object Form1: TForm1
       object N2: TMenuItem
         Caption = '-'
       end
+      object Log1: TMenuItem
+        Caption = 'Zeige Log'
+        OnClick = Log1Click
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
       object Verzeichnisse1: TMenuItem
         Caption = 'Verzeichnisse'
         OnClick = Verzeichnisse1Click
@@ -877,25 +884,56 @@ object Form1: TForm1
         OnClick = Drucken1Click
       end
     end
-    object About1: TMenuItem
-      Caption = 'About'
-    end
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = 'LOG'
     Filter = 'CNC Programm (*.LOG)|*.LOG'
-    Left = 576
-    Top = 328
+    Left = 744
+    Top = 330
   end
   object OpenDialog1: TOpenDialog
     Filter = 'CNC Programme (*.LOG)|*.LOG'
-    Left = 472
-    Top = 320
+    Left = 640
+    Top = 322
   end
   object Timer1: TTimer
     Interval = 500
     OnTimer = Timer1Timer
-    Left = 552
-    Top = 328
+    Left = 744
+    Top = 298
+  end
+  object ComPort1: TComPort
+    BaudRate = br9600
+    Port = 'COM1'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    Buffer.InputSize = 1000
+    Buffer.OutputSize = 0
+    FlowControl.OutCTSFlow = True
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrDisable
+    FlowControl.ControlRTS = rtsHandshake
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    FlowControl.DSRSensitivity = True
+    OnAfterOpen = ComPort1AfterOpen
+    OnAfterClose = ComPort1AfterClose
+    OnBeforeOpen = ComPort1BeforeOpen
+    OnBeforeClose = ComPort1BeforeClose
+    OnRxChar = ComPort1RxChar
+    OnRxBuf = ComPort1RxBuf
+    OnTxEmpty = ComPort1TxEmpty
+    OnBreak = ComPort1Break
+    OnRing = ComPort1Ring
+    OnCTSChange = ComPort1CTSChange
+    OnDSRChange = ComPort1DSRChange
+    OnRLSDChange = ComPort1RLSDChange
+    OnRxFlag = ComPort1RxFlag
+    OnError = ComPort1Error
+    OnRx80Full = ComPort1Rx80Full
+    Left = 640
+    Top = 354
   end
 end

@@ -5,7 +5,7 @@ object Open: TOpen
   BorderStyle = bsDialog
   Caption = #214'ffnen...'
   ClientHeight = 325
-  ClientWidth = 309
+  ClientWidth = 344
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object Open: TOpen
   object Bevel1: TBevel
     Left = 16
     Top = 8
-    Width = 289
+    Width = 305
     Height = 57
     Style = bsRaised
   end
@@ -39,8 +39,8 @@ object Open: TOpen
     Caption = 'Label2'
   end
   object SpeedButton1: TSpeedButton
-    Left = 224
-    Top = 88
+    Left = 240
+    Top = 80
     Width = 81
     Height = 25
     Caption = 'OK'
@@ -62,8 +62,8 @@ object Open: TOpen
     OnClick = SpeedButton1Click
   end
   object SpeedButton2: TSpeedButton
-    Left = 224
-    Top = 120
+    Left = 240
+    Top = 111
     Width = 81
     Height = 25
     Caption = 'Abbrechen'
@@ -98,10 +98,31 @@ object Open: TOpen
     Height = 13
     Caption = 'Suche'
   end
+  object Label5: TLabel
+    Left = 24
+    Top = 16
+    Width = 46
+    Height = 13
+    Caption = 'Maschine'
+  end
+  object Label6: TLabel
+    Left = 24
+    Top = 32
+    Width = 54
+    Height = 13
+    Caption = 'Verzeichnis'
+  end
+  object Label7: TLabel
+    Left = 24
+    Top = 48
+    Width = 61
+    Height = 13
+    Caption = 'Dateiendung'
+  end
   object ListBox1: TListBox
     Left = 16
     Top = 80
-    Width = 193
+    Width = 209
     Height = 193
     ItemHeight = 13
     Sorted = True
@@ -111,10 +132,11 @@ object Open: TOpen
   object Edit1: TEdit
     Left = 16
     Top = 296
-    Width = 193
+    Width = 209
     Height = 21
     TabOrder = 1
     Text = 'Edit1'
+    OnKeyPress = Edit1KeyPress
   end
   object Timer1: TTimer
     Enabled = False

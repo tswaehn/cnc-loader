@@ -4,23 +4,27 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, Buttons, StdCtrls, RXCtrls;
+  ExtCtrls, Buttons, StdCtrls;
 
 type
   TOpen = class(TForm)
-    RxLabel1: TRxLabel;
-    RxLabel2: TRxLabel;
+    //RxLabel1: TRxLabel;
+    //RxLabel2: TRxLabel;
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     Bevel1: TBevel;
-    RxLabel3: TRxLabel;
+    //RxLabel3: TRxLabel;
     Label3: TLabel;
     Edit1: TEdit;
     Label4: TLabel;
     Timer1: TTimer;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure fill_files;
     procedure SpeedButton1Click(Sender: TObject);
@@ -43,7 +47,9 @@ var
 
 implementation
 
-uses CNC1;
+uses main;
+
+
 
 {$R *.DFM}
 
@@ -57,6 +63,8 @@ end;
 procedure Topen.suche(Suchstr:string);
 var zeile,position:integer;
 begin
+if (listbox1.Items.Count < 1) then exit;
+
 suchstr:=upstr(suchstr);
 zeile:=0;
 repeat
@@ -65,6 +73,11 @@ repeat
 until (position=1) or (zeile=listbox1.items.count);
 if position=1 then listbox1.itemindex:=zeile-1;
 
+end;
+
+procedure TOpen.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+suche(edit1.text);
 end;
 
 procedure TOpen.Fill_Files;
@@ -114,7 +127,7 @@ end;
 
 procedure TOpen.Timer1Timer(Sender: TObject);
 begin
-suche(edit1.text);
+//suche(edit1.text);
 end;
 
 procedure TOpen.SpeedButton3Click(Sender: TObject);

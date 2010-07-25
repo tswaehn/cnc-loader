@@ -3,14 +3,13 @@ unit main;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, VaClasses, VaComm, Menus, Inifiles, RXSwitch, ExtCtrls, StdCtrls,
-  Led, ComCtrls,
-   VaSystem,VaConst, VaTypes;
+  CPort,Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Buttons, Menus, Inifiles,StdCtrls,
+  Led, ComCtrls, ExtCtrls, versioninfo;
 
 type
   TForm1 = class(TForm)
-    VaComm1: TVaComm;
+    //VaComm1: TVaComm;
     MainMenu1: TMainMenu;
     Exit1: TMenuItem;
     Commsettings1: TMenuItem;
@@ -37,7 +36,6 @@ type
     N1: TMenuItem;
     Programmempfangen1: TMenuItem;
     Programsenden1: TMenuItem;
-    About1: TMenuItem;
     OpenDialog1: TOpenDialog;
     StatusBar1: TStatusBar;
     RadioButton4: TRadioButton;
@@ -57,6 +55,27 @@ type
     STARSR20R1: TMenuItem;
     Image1: TImage;
     Bevel2: TBevel;
+    ComPort1: TComPort;
+    Log1: TMenuItem;
+    N4: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure ComPort1TxEmpty(Sender: TObject);
+    procedure ComPort1RxFlag(Sender: TObject);
+    procedure ComPort1RxBuf(Sender: TObject; const Buffer; Count: Integer);
+    procedure ComPort1Rx80Full(Sender: TObject);
+    procedure ComPort1RLSDChange(Sender: TObject; OnOff: Boolean);
+    procedure ComPort1Ring(Sender: TObject);
+    procedure ComPort1Error(Sender: TObject; Errors: TComErrors);
+    procedure ComPort1DSRChange(Sender: TObject; OnOff: Boolean);
+    procedure ComPort1CTSChange(Sender: TObject; OnOff: Boolean);
+    procedure ComPort1Break(Sender: TObject);
+    procedure ComPort1BeforeOpen(Sender: TObject);
+    procedure ComPort1BeforeClose(Sender: TObject);
+    procedure ComPort1AfterClose(Sender: TObject);
+    procedure Log1Click(Sender: TObject);
+    procedure ComPort1AfterOpen(Sender: TObject);
+    procedure ComPort1RxChar(Sender: TObject; Count: Integer);
     procedure Set_Port_parameter;
     procedure TND1Click(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
@@ -73,21 +92,19 @@ type
     procedure OKUMALB91Click(Sender: TObject);
     procedure OKUMALT10M1Click(Sender: TObject);
     procedure Set_Port_var;
-    function StrToBaud(Baud:string):TVABaudrate;
-    function StrToDataBit(Bit:string):TVADataBits;
-    function StrToDtr(Dtr:String):TVadtrControl;
-    function StrToFlow(Flow:string):TVaFlowControl;
-    function StrToParity(Parity:string):TVaParity;
-    function StrToRts(Rts:string):TVaRTSControl;
-    function StrToStop(stop:string):TVaStopbits;
+    function StrToBaud(Baud:string):TBaudrate;
+    function StrToDataBit(Bit:string):TDataBits;
+    function StrToDtr(Dtr:String):TDTRFlowControl;
+    function StrToFlow(Flow:string):TFlowControl;
+    function StrToParity(Parity:string):TParityBits;
+    function StrToRts(Rts:string):TRTSFlowControl;
+    function StrToStop(stop:string):TStopbits;
     procedure RxSwitch1On(Sender: TObject);
     procedure Schalte_an;
     procedure Schalte_aus;
     procedure Commsettings1Click(Sender: TObject);
     procedure RxSwitch1Off(Sender: TObject);
-    procedure VaComm1RxChar(Sender: TObject; Count: Integer);
     procedure VaComm1Close(Sender: TObject);
-    procedure VaComm1Open(Sender: TObject);
     procedure Check_char(ch:char);
     procedure SpeedButton1Click(Sender: TObject);
     procedure Save(Dateiname:string);
@@ -106,7 +123,7 @@ type
     procedure ask_save;
     procedure editChange(Sender: TObject);
     procedure Programsenden1Click(Sender: TObject);
-    procedure HandleException(Sender: TObject; E: Exception);
+    procedure HandleExceptionX(Sender: TObject; E: Exception);
     procedure Verzeichnisse1Click(Sender: TObject);
     procedure VaComm1Event1(Sender: TObject);
     procedure VaComm1Event2(Sender: TObject);
@@ -136,6 +153,7 @@ type
     procedure RadioButton11Click(Sender: TObject);
   private
     { Private-Deklarationen }
+    procedure log( text : string );
   public
     { Public-Deklarationen }
  {für Einstellungen}
@@ -154,14 +172,18 @@ type
 
  {für Schnittstelle}
   Settings_For:string;
-  Port:Integer;
-  Baudrate:TvaBaudrate;
-  DataBits:TVaDatabits;
-  DTRControl:TVadtrControl;
-  FlowControl:TVaFlowControl;
-  Parity:TVaParity;
-  RtsControl:TVaRTSControl;
-  StopBits:TVaStopbits;
+  Port:string;
+  PortNr : integer;
+  Baudrate:TBaudrate;
+  DataBits:TDatabits;
+  DTRControl:TDTRFlowControl;
+  FlowControl:TFlowControl;
+  Parity:TParityBits;
+  RtsControl:TRTSFlowControl;
+  StopBits:TStopbits;
+
+  procedure sendText( text : string );
+  procedure sendChar( ch : char );
   end;
 
 var
@@ -169,7 +191,9 @@ var
 
 implementation
 
-uses CNC2, CNC3, CNC4, CNC5, CNC6, CNC8, CNC9, CNC10;
+uses SaveProg_unit, NewProg_unit, SendData_unit, ReciveData_unit,
+  ComSettings_unit, OpenProg_unit, ProgList_unit, PrintProg_unit, logBox_unit;
+
 
 {$R *.DFM}
 
@@ -189,13 +213,13 @@ radiobutton11.font.color:=clblack;
 button.font.color:=clRed;
 end;
 
-procedure TForm1.HandleException(Sender: TObject; E: Exception);
+procedure TForm1.HandleExceptionX(Sender: TObject; E: Exception);
 begin
-  if E is EVaCommError then
-{    with E as EVaCommError do
-      ShowMessage(Message);} messagedlg('Kann ausgewählte Schnittstelle nicht benutzen.',mterror,[mbok],0)
+{  if E is EVaCommError then
+     messagedlg('Kann ausgewählte Schnittstelle nicht benutzen.',mterror,[mbok],0)
          else messagedlg('Error',mterror,[mbok],0);
       beep;
+}
 end;
 
 
@@ -297,6 +321,11 @@ programm_name:=Dateiname;
 Prog_Change(false);
 end;
 
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  comport1.ShowSetupDialog;
+end;
+
 procedure TForm1.Check_char(ch:char);
 begin
 case ch of
@@ -308,7 +337,7 @@ case ch of
      //':':recive.memo1.text:=recive.memo1.text+'O';
      #13:
      else begin
-          recive.rxlabel3.caption:=  inttostr(strtoint(recive.rxlabel3.caption)+1);
+          recive.label1.caption:=  inttostr(strtoint(recive.label1.caption)+1);
           recive.memo1.text:=recive.memo1.text+(ch);
           end;
 
@@ -324,84 +353,120 @@ begin
 ComSettings.load_defaults(typ);
 set_port_var;
 set_port_parameter;
-vacomm1.open;
+comport1.Open;
 end;
 
 procedure TForm1.Schalte_aus;
 begin
-vacomm1.close;
+comport1.Close;
 end;
 
-function TForm1.StrToBaud(baud:string):TVaBaudrate;
+function TForm1.StrToBaud(baud:string):TBaudrate;
 begin
-if baud='110' then StrToBaud:=br110;
-if baud='300' then StrToBaud:=br300;
-if baud='600' then StrToBaud:=br600;
-if baud='1200' then StrToBaud:=br1200;
-if baud='2400' then StrToBaud:=br2400;
-if baud='4800' then StrToBaud:=br4800;
-if baud='9600' then StrToBaud:=br9600;
-if baud='14400' then StrToBaud:=br14400;
+  log('baud '+baud);
+  if baud='110' then StrToBaud:=br110
+  else if baud='300' then StrToBaud:=br300
+  else if baud='600' then StrToBaud:=br600
+  else if baud='1200' then StrToBaud:=br1200
+  else if baud='2400' then StrToBaud:=br2400
+  else if baud='4800' then StrToBaud:=br4800
+  else if baud='9600' then StrToBaud:=br9600
+  else if baud='14400' then StrToBaud:=br14400
+  else begin
+    messagedlg('fehlerhafte einstellungen für baudrate', mtError, [mbok], 0);
+    StrToBaud := br9600;
+  end;
 end;
 
-function TForm1.StrToDataBit(Bit:string):TVADataBits;
+function TForm1.StrToDataBit(Bit:string):TDataBits;
 begin
-if Bit='4' then StrToDataBit:=db4;
-if Bit='5' then StrToDataBit:=db5;
-if Bit='6' then StrToDataBit:=db6;
-if Bit='7' then StrToDataBit:=db7;
-if Bit='8' then StrToDataBit:=db8;
+  log('databits '+bit);
+  if Bit='5' then StrToDataBit:=dbFive
+  else if Bit='6' then StrToDataBit:=dbSix
+  else if Bit='7' then StrToDataBit:=dbSeven
+  else if Bit='8' then StrToDataBit:=dbEight
+  else begin
+    messagedlg('fehlerhafte einstellungen für datenbits', mtError, [mbok], 0);
+    StrToDataBit := dbEight;
+  end;
 end;
 
-function TForm1.StrToDtr(Dtr:String):TVadtrControl;
+function TForm1.StrToDtr(Dtr:String):TDTRFlowControl;
 begin
-if DTR='Enable' then StrToDtr:=dtrenable;
-if DTR='Disable' then StrToDtr:=dtrdisable;
-if DTR='Handshake' then StrToDtr:=dtrHandshake;
+  log('DTR '+DTR);
+  if DTR='Enable' then StrToDtr:=dtrenable
+  else if DTR='Disable' then StrToDtr:=dtrdisable
+  else if DTR='Handshake' then StrToDtr:=dtrHandshake
+  else begin
+    messagedlg('fehlerhafte einstellungen für DTR', mtError, [mbok], 0);
+    StrToDtr := dtrDisable;
+  end;
 end;
 
-function TForm1.StrToFlow(Flow:string):TVaFlowControl;
+function TForm1.StrToRts(Rts:string):TRtsFlowControl;
 begin
-if flow='DtrDsr' then StrToFlow:=FCDtrDsr;
-if flow='unbenannt' then StrToFlow:=FCnone;
-if flow='RtsCts' then StrToFlow:=FCRtsCts;
-if flow='XonXoff' then StrToFlow:=FCXonXoff;
+  log('RTS '+rts);
+  if rts='Enable' then StrToRts:=rtsEnable
+  else if rts='Disable' then StrToRts:=rtsDisable
+  else if rts='Handshake' then StrToRts:=rtsHandshake
+  else if rts='Toggle' then StrToRts:=rtsToggle
+  else begin
+    messagedlg('fehlerhafte einstellungen für RTS', mtError, [mbok], 0);
+    StrToRts := rtsDisable;
+  end;
 end;
 
-function TForm1.StrToParity(Parity:string):TVaParity;
+
+function TForm1.StrToParity(Parity:string):TParityBits;
 begin
-if parity='Even' then StrToParity:=paEven;
-if parity='Mark' then StrToParity:=paMark;
-if parity='unbenannt' then StrToParity:=panone;
-if parity='Odd' then StrToParity:=paodd;
-if parity='Space' then StrToParity:=paSpace;
+  log('parity '+parity);
+  if parity='Even' then StrToParity:=prEven
+  else if parity='Mark' then StrToParity:=prMark
+  else if parity='None' then StrToParity:=prNone
+  else if parity='Odd' then StrToParity:=prOdd
+  else if parity='Space' then StrToParity:=prSpace
+  else begin
+    messagedlg('fehlerhafte einstellungen für Parity', mtError, [mbok], 0);
+    StrToParity := prNone;
+  end;
 end;
 
-function TForm1.StrToRts(Rts:string):TVaRtsControl;
+
+function TForm1.StrToFlow(Flow:string):TFlowControl;
 begin
-if rts='Enable' then StrToRts:=rtsEnable;
-if rts='Disable' then StrToRts:=rtsDisable;
-if rts='Handshake' then StrToRts:=rtsHandshake;
-if rts='Toggle' then StrToRts:=rtsToggle;
+  log('flowcontrol '+flow);
+  if flow='Custom' then StrToFlow:=fcCustom
+  else if flow='None' then StrToFlow:=FCnone
+  else if flow='RtsCts' then StrToFlow:=fcHardware
+  else if flow='XonXoff' then StrToFlow:=fcSoftware
+  else begin
+    messagedlg('fehlerhafte einstellungen für FlowControl', mtError, [mbok], 0);
+    StrToFlow := fcNone;
+  end;
 end;
 
-function TForm1.StrToStop(stop:string):TVaStopbits;
+function TForm1.StrToStop(stop:string):TStopbits;
 begin
-if stop='1' then StrToStop:=sb1;
-if stop='1.5' then StrToStop:=sb15;
-if stop='2' then StrToStop:=sb2;
+  log('stopbits '+stop);
+  if stop='1' then StrToStop:=sbOneStopBit
+  else if stop='1.5' then StrToStop:=sbOne5StopBits
+  else if stop='2' then StrToStop:=sbTwoStopBits
+  else begin
+    messagedlg('fehlerhafte einstellungen für StopBits', mtError, [mbok], 0);
+    StrToStop := sbOneStopBit;
+  end;
 end;
 
 procedure TForm1.Set_port_var;
 begin
-Port:=ComSettings.Combobox1.Itemindex+1;
-Baudrate:=StrToBaud(ComSettings.Combobox2.Text);
-DataBits:=StrToDataBit(ComSettings.Combobox3.Text);
-DTRControl:=StrToDTR(ComSettings.Combobox4.Text);
-FlowControl:=StrToFlow(ComSettings.Combobox5.Text);
-Parity:=StrToParity(ComSettings.Combobox6.Text);
-RtsControl:=StrToRts(ComSettings.Combobox7.Text);
-StopBits:=StrToStop(ComSettings.Combobox8.Text);
+PortNr:=ComSettings.cbPort.Itemindex+1;
+Baudrate:=StrToBaud(ComSettings.cbBaud.Text);
+DataBits:=StrToDataBit(ComSettings.cbDatabits.Text);
+DTRControl:=StrToDTR(ComSettings.cbDTR.Text);
+RtsControl:=StrToRts(ComSettings.cbRTS.Text);
+Parity:=StrToParity(ComSettings.cbParity.Text);
+FlowControl:=StrToFlow(ComSettings.cbFlowControl.Text);
+StopBits:=StrToStop(ComSettings.cbStopbits.Text);
 end;
 
 procedure TForm1.Init;
@@ -419,14 +484,14 @@ end;
 
 procedure TForm1.Set_Port_parameter;
 begin
-vacomm1.portNum:=port;
-vacomm1.baudrate:=baudrate;
-vacomm1.Databits:=databits;
-vacomm1.DTRControl:=DtrControl;
-vacomm1.FlowControl:=FlowControl;
-vacomm1.Parity:=Parity;
-vacomm1.RTSControl:=RTSControl;
-vacomm1.Stopbits:=Stopbits;
+Comport1.port:='COM'+intToStr(portNr);
+Comport1.baudrate:=baudrate;
+Comport1.Databits:=databits;
+Comport1.FlowControl.controlDTR:=DtrControl;
+Comport1.FlowControl.controlRTS:=RTSControl;
+Comport1.FlowControl.FlowControl:=FlowControl;
+Comport1.Parity.Bits:=Parity;
+Comport1.Stopbits:=Stopbits;
 end;
 
 
@@ -452,6 +517,13 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 if com_open then messagedlg('Schnittstelle ist noch offen.',mterror,[mbok],0);
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var version : string;
+begin
+  version := GetExeVersionStr('cnc_loader.exe');
+  statusbar1.Panels[2].Text := version;
 end;
 
 procedure TForm1.TNS3042D1Click(Sender: TObject);
@@ -522,18 +594,95 @@ begin
 schalte_aus;
 end;
 
-procedure TForm1.RxSwitch1Off(Sender: TObject);
+procedure TForm1.ComPort1AfterClose(Sender: TObject);
 begin
-schalte_aus;
+  log('schnittstelle geschlossen');
+  com_open:=false;
 end;
 
-procedure TForm1.VaComm1RxChar(Sender: TObject; Count: Integer);
-var instr:string;a:integer;
+procedure TForm1.ComPort1AfterOpen(Sender: TObject);
 begin
-instr:=vacomm1.ReadText;
+log('schnittstelle geöffnet');
+Recive.OpenLED.state:=LEDOn;
+Send.OpenLED.state:=LEDOn;
+com_open:=true;
+end;
+
+procedure TForm1.ComPort1BeforeClose(Sender: TObject);
+begin
+  log('schliesse schnittstelle');
+end;
+
+procedure TForm1.ComPort1BeforeOpen(Sender: TObject);
+begin
+  log('öffne schnittstelle');
+end;
+
+procedure TForm1.ComPort1Break(Sender: TObject);
+begin
+  log('signal - break');
+end;
+
+procedure TForm1.ComPort1CTSChange(Sender: TObject; OnOff: Boolean);
+begin
+  log('signal - cts geändert');
+end;
+
+procedure TForm1.ComPort1DSRChange(Sender: TObject; OnOff: Boolean);
+begin
+  log('signal - dsr geändert');
+end;
+
+procedure TForm1.ComPort1Error(Sender: TObject; Errors: TComErrors);
+begin
+  log('fehler');
+end;
+
+procedure TForm1.ComPort1Ring(Sender: TObject);
+begin
+  log('ereignis - ring');
+end;
+
+procedure TForm1.ComPort1RLSDChange(Sender: TObject; OnOff: Boolean);
+begin
+  log('ereignis - rlsd geändert');
+end;
+
+procedure TForm1.ComPort1Rx80Full(Sender: TObject);
+begin
+  log('empfangspuffer voll');
+end;
+
+procedure TForm1.ComPort1RxBuf(Sender: TObject; const Buffer; Count: Integer);
+begin
+  log('puffer wurde gefüllt');
+end;
+
+procedure TForm1.ComPort1RxChar(Sender: TObject; Count: Integer);
+var   instr:string;
+      a:integer;
+begin
+  log(intToStr(count) +' zeichen empfangen');
+  comport1.ReadStr( instr, count );
+
 inbuf:=inbuf+instr;
 for a:=1 to count do check_char(instr[a]);
 recive.empfang;
+end;
+
+procedure TForm1.ComPort1RxFlag(Sender: TObject);
+begin
+  log('signal - rx');
+end;
+
+procedure TForm1.ComPort1TxEmpty(Sender: TObject);
+begin
+  //log('sendepuffer leer');
+end;
+
+procedure TForm1.RxSwitch1Off(Sender: TObject);
+begin
+schalte_aus;
 end;
 
 procedure TForm1.VaComm1Close(Sender: TObject);
@@ -541,14 +690,6 @@ begin
 Recive.OpenLed.state:=LEDOff;
 Send.OpenLed.state:=LEDOff;
 com_open:=false;
-end;
-
-procedure TForm1.VaComm1Open(Sender: TObject);
-begin
-Application.OnException := HandleException;
-Recive.OpenLED.state:=LEDOn;
-Send.OpenLED.state:=LEDOn;
-com_open:=true;
 end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
@@ -593,7 +734,6 @@ end;
 
 procedure TForm1.Programsenden1Click(Sender: TObject);
 begin
-
 sende_alles;
 end;
 
@@ -743,5 +883,37 @@ procedure TForm1.RadioButton11Click(Sender: TObject);
 begin
 mark(radiobutton11);
 end;
+
+
+procedure TForm1.log( text : string );
+begin
+  logBox.log( text );
+end;
+
+procedure TForm1.Log1Click(Sender: TObject);
+begin
+  logBox.Show;
+end;
+
+procedure TForm1.sendText( text : string );
+begin
+ //
+end;
+
+procedure TForm1.sendChar( ch : char );
+var buf:string;
+begin
+ //
+ //buf := ch;
+// ComPort1.WriteStr( buf );
+ ComPort1.TransmitChar( ch );
+ {
+   form1.vacomm1.writechar(ch);    //
+   rxlabel4.caption:=inttostr(form1.vacomm1.ReadBufSize);
+   rxlabel5.caption:=inttostr(form1.vacomm1.writeBufSize);
+   }
+
+end;
+
 
 end.

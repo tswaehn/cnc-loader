@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, StdCtrls, ComCtrls, ExtCtrls, RXCtrls;
+  Buttons, StdCtrls, ComCtrls, ExtCtrls;
 
 type
   TDrucken = class(TForm)
@@ -13,8 +13,8 @@ type
     SpeedButton2: TSpeedButton;
     PrinterSetupDialog1: TPrinterSetupDialog;
     SpeedButton3: TSpeedButton;
-    RxLabel1: TRxLabel;
-    RxLabel2: TRxLabel;
+    //RxLabel1: TRxLabel;
+    //RxLabel2: TRxLabel;
     Label1: TLabel;
     Label2: TLabel;
     Bevel1: TBevel;
@@ -34,7 +34,9 @@ var
 
 implementation
 
-uses CNC1;
+uses main;
+
+
 
 {$R *.DFM}
 

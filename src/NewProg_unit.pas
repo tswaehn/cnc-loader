@@ -4,15 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, RXCtrls, StdCtrls;
+  Buttons, StdCtrls;
 
 type
   TNeu = class(TForm)
     Edit1: TEdit;
-    RxLabel1: TRxLabel;
-    RxLabel2: TRxLabel;
+    //RxLabel1: TRxLabel;
+    //RxLabel2: TRxLabel;
     Edit2: TEdit;
-    BitBtn1: TBitBtn;
+    Label1: TLabel;
+    Label2: TLabel;
+    SpeedButton1: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -29,7 +31,7 @@ implementation
 {$R *.DFM}
 
 procedure TNeu.SpeedButton1Click(Sender: TObject);
-var zahl,code:integer;
+var zahl, code:integer;
 begin
 val(edit1.text,zahl,code);
 if code = 0 then modalresult:=mrok else Messagedlg('Für Programmnummer sind nur Ziffern erlaubt.',mterror,[mbok],0);

@@ -4,21 +4,24 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Buttons, ExtCtrls, StdCtrls, RXCtrls;
+  Buttons, ExtCtrls, StdCtrls;
 
 type
   TSpeichern = class(TForm)
-    RxLabel1: TRxLabel;
-    RxLabel2: TRxLabel;
+    //RxLabel1: TRxLabel;
+    //RxLabel2: TRxLabel;
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
     Edit1: TEdit;
-    RxLabel3: TRxLabel;
+    //RxLabel3: TRxLabel;
     Label3: TLabel;
     Bevel1: TBevel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     procedure SpeedButton2Click(Sender: TObject);
     procedure lade_daten;
     procedure FormShow(Sender: TObject);
@@ -35,7 +38,9 @@ var
 
 implementation
 
-uses CNC1, CNC8;
+uses main, OpenProg_unit;
+
+
 
 {$R *.DFM}
 

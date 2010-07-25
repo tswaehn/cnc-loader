@@ -4,8 +4,8 @@ object ComSettings: TComSettings
   BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsToolWindow
   Caption = 'ComSettings'
-  ClientHeight = 296
-  ClientWidth = 165
+  ClientHeight = 311
+  ClientWidth = 166
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -68,7 +68,70 @@ object ComSettings: TComSettings
     Height = 25
     Style = bsRaised
   end
-  object ComboBox1: TComboBox
+  object Label1: TLabel
+    Left = 15
+    Top = 13
+    Width = 32
+    Height = 13
+    Caption = 'Label1'
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 43
+    Width = 40
+    Height = 13
+    Caption = 'ComPort'
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 67
+    Width = 43
+    Height = 13
+    Caption = 'Baudrate'
+  end
+  object Label4: TLabel
+    Left = 8
+    Top = 91
+    Width = 40
+    Height = 13
+    Caption = 'DataBits'
+  end
+  object Label5: TLabel
+    Left = 8
+    Top = 115
+    Width = 23
+    Height = 13
+    Caption = 'DTR'
+  end
+  object Label6: TLabel
+    Left = 8
+    Top = 139
+    Width = 22
+    Height = 13
+    Caption = 'RTS'
+  end
+  object Label7: TLabel
+    Left = 8
+    Top = 163
+    Width = 26
+    Height = 13
+    Caption = 'Parity'
+  end
+  object Label8: TLabel
+    Left = 8
+    Top = 187
+    Width = 55
+    Height = 13
+    Caption = 'FlowControl'
+  end
+  object Label9: TLabel
+    Left = 8
+    Top = 211
+    Width = 39
+    Height = 13
+    Caption = 'StopBits'
+  end
+  object cbPort: TComboBox
     Left = 80
     Top = 40
     Width = 81
@@ -84,9 +147,31 @@ object ComSettings: TComSettings
       '5'
       '6'
       '7'
-      '8')
+      '8'
+      '9'
+      '10'
+      '11'
+      '12'
+      '13'
+      '14'
+      '15'
+      '16'
+      '17'
+      '18'
+      '19'
+      '20'
+      '21'
+      '22'
+      '23'
+      '24'
+      '25'
+      '26'
+      '27'
+      '28'
+      '29'
+      '30')
   end
-  object ComboBox2: TComboBox
+  object cbBaud: TComboBox
     Left = 80
     Top = 64
     Width = 81
@@ -104,7 +189,7 @@ object ComSettings: TComSettings
       '9600'
       '14400')
   end
-  object ComboBox3: TComboBox
+  object cbDatabits: TComboBox
     Left = 80
     Top = 88
     Width = 81
@@ -118,7 +203,7 @@ object ComSettings: TComSettings
       '7'
       '8')
   end
-  object ComboBox4: TComboBox
+  object cbDTR: TComboBox
     Left = 80
     Top = 112
     Width = 81
@@ -127,13 +212,13 @@ object ComSettings: TComSettings
     ItemHeight = 16
     TabOrder = 3
     Items.Strings = (
-      'Enabled'
+      'Enable'
       'Disable'
       'Handshake')
   end
-  object ComboBox5: TComboBox
+  object cbRTS: TComboBox
     Left = 80
-    Top = 132
+    Top = 136
     Width = 81
     Height = 22
     Style = csOwnerDrawFixed
@@ -145,7 +230,7 @@ object ComSettings: TComSettings
       'Handshake'
       'Toggle')
   end
-  object ComboBox6: TComboBox
+  object cbParity: TComboBox
     Left = 80
     Top = 160
     Width = 81
@@ -160,7 +245,7 @@ object ComSettings: TComSettings
       'Odd'
       'Space')
   end
-  object ComboBox7: TComboBox
+  object cbFlowControl: TComboBox
     Left = 80
     Top = 184
     Width = 81
@@ -169,12 +254,12 @@ object ComSettings: TComSettings
     ItemHeight = 16
     TabOrder = 6
     Items.Strings = (
-      'DtrDsr'
+      'Custom'
       'None'
       'RtsCts'
       'XonXoff')
   end
-  object ComboBox8: TComboBox
+  object cbStopBits: TComboBox
     Left = 80
     Top = 208
     Width = 81

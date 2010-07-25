@@ -68,4 +68,18 @@ object Send: TSend
     Height = 13
     Caption = 'Label2'
   end
+  object Label3: TLabel
+    Left = 24
+    Top = 16
+    Width = 46
+    Height = 13
+    Caption = 'Maschine'
+  end
+  object Label4: TLabel
+    Left = 24
+    Top = 32
+    Width = 47
+    Height = 13
+    Caption = 'Programm'
+  end
 end
