@@ -16,20 +16,6 @@ object Neu: TNeu
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object RxLabel1: TRxLabel
-    Left = 8
-    Top = 12
-    Width = 86
-    Height = 13
-    Caption = 'Programmnummer'
-  end
-  object RxLabel2: TRxLabel
-    Left = 8
-    Top = 36
-    Width = 75
-    Height = 13
-    Caption = 'Programmname'
-  end
   object Edit1: TEdit
     Left = 104
     Top = 8

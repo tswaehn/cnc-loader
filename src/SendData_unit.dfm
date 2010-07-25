@@ -46,13 +46,6 @@ object Send: TSend
     Top = 96
     LEDOnColor = LEDGreen
   end
-  object RxLabel1: TRxLabel
-    Left = 40
-    Top = 96
-    Width = 50
-    Height = 13
-    Caption = 'Port Open'
-  end
   object SpeedButton2: TSpeedButton
     Left = 136
     Top = 96
@@ -61,13 +54,6 @@ object Send: TSend
     Caption = 'Sende Programm'
     OnClick = SpeedButton2Click
   end
-  object RxLabel2: TRxLabel
-    Left = 24
-    Top = 16
-    Width = 48
-    Height = 13
-    Caption = 'Maschine'
-  end
   object Label1: TLabel
     Left = 80
     Top = 16
@@ -75,33 +61,11 @@ object Send: TSend
     Height = 13
     Caption = 'Label1'
   end
-  object RxLabel3: TRxLabel
-    Left = 24
-    Top = 32
-    Width = 49
-    Height = 13
-    Caption = 'Programm'
-    OnClick = FormHide
-  end
   object Label2: TLabel
     Left = 80
     Top = 32
     Width = 32
     Height = 13
     Caption = 'Label2'
-  end
-  object RxLabel4: TRxLabel
-    Left = 320
-    Top = 96
-    Width = 47
-    Height = 17
-    Caption = 'RxLabel4'
-  end
-  object RxLabel5: TRxLabel
-    Left = 320
-    Top = 112
-    Width = 47
-    Height = 13
-    Caption = 'RxLabel5'
   end
 end

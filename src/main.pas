@@ -1,4 +1,4 @@
-unit CNC1;
+unit main;
 
 interface
 

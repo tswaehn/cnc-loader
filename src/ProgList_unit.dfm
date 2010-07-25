@@ -22,7 +22,7 @@ object ProgVerzeichnisse: TProgVerzeichnisse
     Top = 224
     Width = 89
     Height = 25
-    Caption = 'Übernehmen'
+    Caption = #220'bernehmen'
     Enabled = False
     Flat = True
     OnClick = SpeedButton1Click

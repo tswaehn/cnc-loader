@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2010.07.25 12:29:26.718.pas,L:\delphi\CNC_Loader\src\CNC1.pas=L:\delphi\CNC_Loader\src\main.pas</Transaction>
+    <Transaction>2010.07.25 12:29:26.718.dfm,L:\delphi\CNC_Loader\src\CNC1.dfm=L:\delphi\CNC_Loader\src\main.dfm</Transaction>
+    <Transaction>2010.07.25 12:29:56.703.pas,L:\delphi\CNC_Loader\src\CNC2.pas=L:\delphi\CNC_Loader\src\ComSettings_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:29:56.703.dfm,L:\delphi\CNC_Loader\src\CNC2.dfm=L:\delphi\CNC_Loader\src\ComSettings_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:30:19.750.pas,L:\delphi\CNC_Loader\src\CNC3.pas=L:\delphi\CNC_Loader\src\ReciveData_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:30:19.750.dfm,L:\delphi\CNC_Loader\src\CNC3.dfm=L:\delphi\CNC_Loader\src\ReciveData_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:30:39.500.pas,L:\delphi\CNC_Loader\src\CNC4.pas=L:\delphi\CNC_Loader\src\SendData_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:30:39.500.dfm,L:\delphi\CNC_Loader\src\CNC4.dfm=L:\delphi\CNC_Loader\src\SendData_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:31:02.609.pas,L:\delphi\CNC_Loader\src\CNC5.pas=L:\delphi\CNC_Loader\src\NewProg_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:31:02.609.dfm,L:\delphi\CNC_Loader\src\CNC5.dfm=L:\delphi\CNC_Loader\src\NewProg_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:31:21.203.pas,L:\delphi\CNC_Loader\src\CNC6.pas=L:\delphi\CNC_Loader\src\ProgList.pas</Transaction>
+    <Transaction>2010.07.25 12:31:21.203.dfm,L:\delphi\CNC_Loader\src\CNC6.dfm=L:\delphi\CNC_Loader\src\ProgList.dfm</Transaction>
+    <Transaction>2010.07.25 12:31:37.578.pas,L:\delphi\CNC_Loader\src\CNC7.pas=L:\delphi\CNC_Loader\src\OpenProg.pas</Transaction>
+    <Transaction>2010.07.25 12:31:37.578.dfm,L:\delphi\CNC_Loader\src\CNC7.dfm=L:\delphi\CNC_Loader\src\OpenProg.dfm</Transaction>
+    <Transaction>2010.07.25 12:32:00.156.pas,L:\delphi\CNC_Loader\src\OpenProg.pas=L:\delphi\CNC_Loader\src\DirList_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:32:00.156.dfm,L:\delphi\CNC_Loader\src\OpenProg.dfm=L:\delphi\CNC_Loader\src\DirList_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:32:13.093.pas,L:\delphi\CNC_Loader\src\ProgList.pas=L:\delphi\CNC_Loader\src\ProgList_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:32:13.093.dfm,L:\delphi\CNC_Loader\src\ProgList.dfm=L:\delphi\CNC_Loader\src\ProgList_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:32:29.093.pas,L:\delphi\CNC_Loader\src\CNC8.pas=L:\delphi\CNC_Loader\src\OpenProg_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:32:29.093.dfm,L:\delphi\CNC_Loader\src\CNC8.dfm=L:\delphi\CNC_Loader\src\OpenProg_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:33:02.531.pas,L:\delphi\CNC_Loader\src\CNC9.pas=L:\delphi\CNC_Loader\src\PrintProg_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:33:02.531.dfm,L:\delphi\CNC_Loader\src\CNC9.dfm=L:\delphi\CNC_Loader\src\PrintProg_unit.dfm</Transaction>
+    <Transaction>2010.07.25 12:33:26.609.pas,L:\delphi\CNC_Loader\src\CNC10.pas=L:\delphi\CNC_Loader\src\SaveProg_unit.pas</Transaction>
+    <Transaction>2010.07.25 12:33:26.609.dfm,L:\delphi\CNC_Loader\src\CNC10.dfm=L:\delphi\CNC_Loader\src\SaveProg_unit.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

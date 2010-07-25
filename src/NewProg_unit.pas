@@ -1,4 +1,4 @@
-unit CNC5;
+unit NewProg_unit;
 
 interface
 

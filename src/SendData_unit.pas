@@ -1,4 +1,4 @@
-unit CNC4;
+unit SendData_unit;
 
 interface
 

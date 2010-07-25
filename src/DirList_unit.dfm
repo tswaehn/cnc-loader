@@ -21,19 +21,12 @@ object Directory: TDirectory
     Height = 50
     Style = bsRaised
   end
-  object RxLabel1: TRxLabel
-    Left = 24
-    Top = 40
-    Width = 80
-    Height = 13
-    Caption = 'Suchverzeichnis'
-  end
   object Label1: TLabel
     Left = 112
     Top = 40
-    Width = 132
+    Width = 127
     Height = 13
-    Caption = 'C:\DELPHI_5\CNC_Loader'
+    Caption = 'L:\delphi\CNC_Loader\src'
   end
   object SpeedButton1: TSpeedButton
     Left = 360
@@ -52,13 +45,6 @@ object Directory: TDirectory
     Caption = 'Abbrechen'
     Flat = True
     OnClick = SpeedButton2Click
-  end
-  object RxLabel2: TRxLabel
-    Left = 24
-    Top = 16
-    Width = 48
-    Height = 13
-    Caption = 'Maschine'
   end
   object Label2: TLabel
     Left = 88

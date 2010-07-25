@@ -17,62 +17,6 @@ object ComSettings: TComSettings
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object RxLabel1: TRxLabel
-    Left = 8
-    Top = 40
-    Width = 21
-    Height = 13
-    Caption = 'Port'
-  end
-  object RxLabel2: TRxLabel
-    Left = 8
-    Top = 64
-    Width = 45
-    Height = 13
-    Caption = 'Baudrate'
-  end
-  object RxLabel3: TRxLabel
-    Left = 8
-    Top = 88
-    Width = 41
-    Height = 13
-    Caption = 'Databits'
-  end
-  object RxLabel4: TRxLabel
-    Left = 8
-    Top = 112
-    Width = 25
-    Height = 13
-    Caption = 'DTR'
-  end
-  object RxLabel5: TRxLabel
-    Left = 8
-    Top = 184
-    Width = 57
-    Height = 13
-    Caption = 'FlowControl'
-  end
-  object RxLabel6: TRxLabel
-    Left = 8
-    Top = 160
-    Width = 28
-    Height = 13
-    Caption = 'Parity'
-  end
-  object RxLabel7: TRxLabel
-    Left = 8
-    Top = 136
-    Width = 24
-    Height = 13
-    Caption = 'RTS'
-  end
-  object RxLabel8: TRxLabel
-    Left = 8
-    Top = 208
-    Width = 41
-    Height = 13
-    Caption = 'StopBits'
-  end
   object SpeedButton1: TSpeedButton
     Left = 40
     Top = 240
@@ -123,20 +67,6 @@ object ComSettings: TComSettings
     Width = 153
     Height = 25
     Style = bsRaised
-  end
-  object RxLabel9: TRxLabel
-    Left = 48
-    Top = 16
-    Width = 47
-    Height = 13
-    Caption = 'RxLabel9'
-  end
-  object RxLabel10: TRxLabel
-    Left = 16
-    Top = 16
-    Width = 26
-    Height = 13
-    Caption = 'Typ :'
   end
   object ComboBox1: TComboBox
     Left = 80
@@ -203,7 +133,7 @@ object ComSettings: TComSettings
   end
   object ComboBox5: TComboBox
     Left = 80
-    Top = 136
+    Top = 132
     Width = 81
     Height = 22
     Style = csOwnerDrawFixed

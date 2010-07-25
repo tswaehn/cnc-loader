@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'CNC'
-  ClientHeight = 407
+  ClientHeight = 427
   ClientWidth = 632
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -592,7 +592,7 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 388
+    Top = 408
     Width = 632
     Height = 19
     Panels = <
@@ -610,7 +610,7 @@ object Form1: TForm1
         Text = 'Ver. 2.01'
         Width = 50
       end>
-    SimplePanel = False
+    ExplicitTop = 388
   end
   object RadioButton1: TRadioButton
     Left = 480
@@ -779,34 +779,6 @@ object Form1: TForm1
     TabOrder = 12
     OnClick = RadioButton7Click
   end
-  object VaComm1: TVaComm
-    Baudrate = br110
-    DeviceName = 'COM%d'
-    MonitorEvents = [ceBreak, ceCts, ceDsr, ceError, ceRing, ceRlsd, ceRxChar, ceTxEmpty, ceRxFlag]
-    ReadBufSize = 2000
-    WriteBufSize = 2000
-    WriteTimeout = 10000
-    FlowControl = fcXonXoff
-    Options = [coContinueOnXOff, coDsrSensitivity]
-    XonLim = 20
-    XoffLim = 20
-    RTSControl = rtsHandshake
-    OnOpen = VaComm1Open
-    OnClose = VaComm1Close
-    OnCts = VaComm1Cts
-    OnDsr = VaComm1Dsr
-    OnRlsd = VaComm1Rlsd
-    OnRing = VaComm1Ring
-    OnBreak = VaComm1Break
-    OnError = VaComm1Error
-    OnRxChar = VaComm1RxChar
-    OnEvent1 = VaComm1Event1
-    OnEvent2 = VaComm1Event2
-    OnTxEmpty = VaComm1TxEmpty
-    OnRx80Full = VaComm1Rx80Full
-    Left = 520
-    Top = 352
-  end
   object MainMenu1: TMainMenu
     Left = 520
     Top = 320
@@ -875,7 +847,7 @@ object Form1: TForm1
     object Funktion1: TMenuItem
       Caption = 'Funktion'
       object Dateiffnen1: TMenuItem
-        Caption = 'Datei öffnen'
+        Caption = 'Datei '#246'ffnen'
         OnClick = Dateiffnen1Click
       end
       object inDateispeichern1: TMenuItem

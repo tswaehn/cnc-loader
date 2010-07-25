@@ -1,4 +1,4 @@
-unit CNC2;
+unit ComSettings_unit;
 
 interface
 

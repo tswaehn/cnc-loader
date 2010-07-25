@@ -1,11 +1,11 @@
-object Open: TOpen
-  Left = 230
-  Top = 45
-  BorderIcons = [biMinimize, biMaximize]
+object Speichern: TSpeichern
+  Left = 261
+  Top = 100
+  ActiveControl = Edit1
   BorderStyle = bsDialog
-  Caption = 'Öffnen...'
-  ClientHeight = 325
-  ClientWidth = 309
+  Caption = 'Speichern'
+  ClientHeight = 359
+  ClientWidth = 319
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,72 +13,65 @@ object Open: TOpen
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
-  OnHide = FormHide
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Bevel1: TBevel
-    Left = 16
-    Top = 8
-    Width = 289
-    Height = 57
-    Style = bsRaised
-  end
-  object RxLabel1: TRxLabel
-    Left = 24
-    Top = 16
-    Width = 48
-    Height = 13
-    Caption = 'Maschine'
-  end
-  object RxLabel2: TRxLabel
-    Left = 24
-    Top = 32
-    Width = 56
-    Height = 13
-    Caption = 'Verzeichnis'
-  end
   object Label1: TLabel
-    Left = 88
+    Left = 96
     Top = 16
     Width = 32
     Height = 13
     Caption = 'Label1'
   end
   object Label2: TLabel
-    Left = 88
+    Left = 96
     Top = 32
     Width = 32
     Height = 13
     Caption = 'Label2'
   end
+  object Label3: TLabel
+    Left = 96
+    Top = 48
+    Width = 32
+    Height = 13
+    Caption = 'Label3'
+  end
+  object Bevel1: TBevel
+    Left = 16
+    Top = 8
+    Width = 297
+    Height = 65
+    Style = bsRaised
+  end
   object SpeedButton1: TSpeedButton
-    Left = 224
-    Top = 88
-    Width = 81
+    Left = 216
+    Top = 104
+    Width = 89
     Height = 25
-    Caption = 'OK'
+    Caption = 'Speichern'
     Flat = True
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
-      04000000000000010000120B0000120B00001000000000000000000000000000
+      04000000000000010000130B0000130B00001000000000000000000000000000
       800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00555555555555
-      555555555555555555555555555555555555555555FF55555555555559055555
-      55555555577FF5555555555599905555555555557777F5555555555599905555
-      555555557777FF5555555559999905555555555777777F555555559999990555
-      5555557777777FF5555557990599905555555777757777F55555790555599055
-      55557775555777FF5555555555599905555555555557777F5555555555559905
-      555555555555777FF5555555555559905555555555555777FF55555555555579
-      05555555555555777FF5555555555557905555555555555777FF555555555555
-      5990555555555555577755555555555555555555555555555555}
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF003333330B7FFF
+      FFB0333333777F3333773333330B7FFFFFB0333333777F3333773333330B7FFF
+      FFB0333333777F3333773333330B7FFFFFB03FFFFF777FFFFF77000000000077
+      007077777777777777770FFFFFFFF00077B07F33333337FFFF770FFFFFFFF000
+      7BB07F3FF3FFF77FF7770F00F000F00090077F77377737777F770FFFFFFFF039
+      99337F3FFFF3F7F777FF0F0000F0F09999937F7777373777777F0FFFFFFFF999
+      99997F3FF3FFF77777770F00F000003999337F773777773777F30FFFF0FF0339
+      99337F3FF7F3733777F30F08F0F0337999337F7737F73F7777330FFFF0039999
+      93337FFFF7737777733300000033333333337777773333333333}
     NumGlyphs = 2
     OnClick = SpeedButton1Click
   end
   object SpeedButton2: TSpeedButton
-    Left = 224
-    Top = 120
-    Width = 81
+    Left = 216
+    Top = 136
+    Width = 89
     Height = 25
     Caption = 'Abbrechen'
     Flat = True
@@ -98,49 +91,27 @@ object Open: TOpen
     NumGlyphs = 2
     OnClick = SpeedButton2Click
   end
-  object RxLabel3: TRxLabel
-    Left = 24
-    Top = 48
-    Width = 20
-    Height = 13
-    Caption = 'Ext.'
-  end
-  object Label3: TLabel
-    Left = 88
-    Top = 48
-    Width = 32
-    Height = 13
-    Caption = 'Label3'
-  end
-  object Label4: TLabel
-    Left = 16
-    Top = 283
-    Width = 31
-    Height = 13
-    Caption = 'Suche'
-  end
   object ListBox1: TListBox
     Left = 16
     Top = 80
-    Width = 193
-    Height = 193
+    Width = 177
+    Height = 241
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clInactiveCaption
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     ItemHeight = 13
+    ParentFont = False
     Sorted = True
     TabOrder = 0
-    OnClick = ListBox1Click
   end
   object Edit1: TEdit
     Left = 16
-    Top = 296
-    Width = 193
+    Top = 328
+    Width = 177
     Height = 21
     TabOrder = 1
     Text = 'Edit1'
-  end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 240
-    Top = 176
   end
 end

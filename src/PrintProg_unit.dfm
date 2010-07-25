@@ -85,20 +85,6 @@ object Drucken: TDrucken
     NumGlyphs = 2
     OnClick = SpeedButton3Click
   end
-  object RxLabel1: TRxLabel
-    Left = 24
-    Top = 16
-    Width = 48
-    Height = 13
-    Caption = 'Maschine'
-  end
-  object RxLabel2: TRxLabel
-    Left = 24
-    Top = 32
-    Width = 49
-    Height = 13
-    Caption = 'Programm'
-  end
   object Label1: TLabel
     Left = 80
     Top = 16

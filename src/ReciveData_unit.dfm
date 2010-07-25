@@ -23,7 +23,7 @@ object Recive: TRecive
     Top = 72
     Width = 113
     Height = 22
-    Caption = 'Daten übernehmen'
+    Caption = 'Daten '#252'bernehmen'
     Enabled = False
     Flat = True
     OnClick = SpeedButton1Click
@@ -37,13 +37,6 @@ object Recive: TRecive
     Flat = True
     OnClick = SpeedButton2Click
   end
-  object RxLabel1: TRxLabel
-    Left = 48
-    Top = 240
-    Width = 44
-    Height = 13
-    Caption = 'Empfang'
-  end
   object rxLed: TLED
     Left = 24
     Top = 240
@@ -54,30 +47,9 @@ object Recive: TRecive
     Top = 264
     LEDOnColor = LEDGreen
   end
-  object RxLabel2: TRxLabel
-    Left = 48
-    Top = 264
-    Width = 52
-    Height = 13
-    Caption = 'Com Open'
-  end
-  object RxLabel3: TRxLabel
-    Left = 112
-    Top = 240
-    Width = 8
-    Height = 13
-    Caption = '0'
-  end
   object ereignis_led: TLED
     Left = 136
     Top = 264
-  end
-  object RxLabel4: TRxLabel
-    Left = 160
-    Top = 264
-    Width = 39
-    Height = 13
-    Caption = 'Ereignis'
   end
   object Memo1: TMemo
     Left = 16
@@ -101,7 +73,6 @@ object Recive: TRecive
       item
         Width = 50
       end>
-    SimplePanel = False
   end
   object led_timer: TTimer
     Enabled = False

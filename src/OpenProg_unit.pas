@@ -1,4 +1,4 @@
-unit CNC8;
+unit OpenProg_unit;
 
 interface
 
