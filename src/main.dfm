@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'CNC'
-  ClientHeight = 422
+  ClientHeight = 442
   ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -593,7 +593,7 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 403
+    Top = 423
     Width = 794
     Height = 19
     Panels = <
@@ -909,22 +909,18 @@ object Form1: TForm1
     StopBits = sbOneStopBit
     DataBits = dbEight
     Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
-    Buffer.InputSize = 1000
-    Buffer.OutputSize = 0
-    FlowControl.OutCTSFlow = True
+    FlowControl.OutCTSFlow = False
     FlowControl.OutDSRFlow = False
     FlowControl.ControlDTR = dtrDisable
-    FlowControl.ControlRTS = rtsHandshake
+    FlowControl.ControlRTS = rtsDisable
     FlowControl.XonXoffOut = False
     FlowControl.XonXoffIn = False
-    FlowControl.DSRSensitivity = True
     OnAfterOpen = ComPort1AfterOpen
     OnAfterClose = ComPort1AfterClose
     OnBeforeOpen = ComPort1BeforeOpen
     OnBeforeClose = ComPort1BeforeClose
     OnRxChar = ComPort1RxChar
     OnRxBuf = ComPort1RxBuf
-    OnTxEmpty = ComPort1TxEmpty
     OnBreak = ComPort1Break
     OnRing = ComPort1Ring
     OnCTSChange = ComPort1CTSChange
@@ -934,6 +930,6 @@ object Form1: TForm1
     OnError = ComPort1Error
     OnRx80Full = ComPort1Rx80Full
     Left = 640
-    Top = 354
+    Top = 352
   end
 end

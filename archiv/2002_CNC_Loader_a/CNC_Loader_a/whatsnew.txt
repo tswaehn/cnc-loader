@@ -1,0 +1,289 @@
+****************************************************
+
+     Varian Async32 Components
+
+     Varian Software NL (c) 1996-2001
+     All Rights Reserved
+
+****************************************************
+
+[Extra Delphi 6 version!]
+
+We are aware that some of the changes in this release
+are not "fully" compatible with previous versions. We 
+like to apologise for any inconvenience this may cause.
+
+
+Whats new in version 1.82
+
+General
+-------
+
+- Due to a newly implemented dispatching method we
+  achieved a global increase of communication speed of
+  200% !
+
+- New component TVaCapture.
+  Capture messages passing trough the comport!
+
+- New component TVaXModem. (XModem protocol)
+
+- New component TVaYModem. (YModem protocol)
+
+- ZModem with crash recovery will follow in 
+  our next release.
+
+- To make the code better to read we have changed
+  the OnLine property to Active (all components).
+
+- TVaDataSource no longer exists. All components are
+  now directly linked to the TVaComm component.
+
+- Updated/rewritten several parts of the code in general.
+  
+
+TVaComm
+-------
+
+- If property MonitorEvents was "empty" TVaComm used
+  100% processor time, fixed.
+
+- Introduced a new persistent class TVaBuffers which
+  contains all comm buffer settings.
+  property Buffers: TVaBuffers;
+
+- XOnLim and XOffLim are no longer published.
+  They are both calculated as 1/4 of the size of the
+  Read buffer.
+
+- Resticted PortNum value. Below zero values 
+  are no longer allowed.
+
+- Added new event "cePErr" (Printer error flag). 
+
+- Declaration of OnRxBuf event has changed:
+  Old: TVaCommRxBufEvent = procedure(Sender: TObject; Buf: PChar; Count: Integer) of object;
+  New: TVaCommRxBufEvent = procedure(Sender: TObject; Data: PVaData; Count: Integer) of object;
+
+  Where PVaData is a Pointer to an array structure. 
+
+  This change was needed so the library could also process #0 characters. 
+  With pchar string types #0 would signal an end of string.
+
+- Added new method EnableControls
+  To enable all attached controls
+
+- Added new method DisableControls
+  To disable all attached controls
+
+- Added new public property "properties" which is filled after
+  opening the comport.
+  property Properties: TCommProp;
+
+  TCOMMPROP = record
+    wPacketLength: Word;
+    wPacketVersion: Word;
+    dwServiceMask: DWORD;
+    dwReserved1: DWORD;
+    dwMaxTxQueue: DWORD;
+    dwMaxRxQueue: DWORD;
+    dwMaxBaud: DWORD;
+    dwProvSubType: DWORD;
+    dwProvCapabilities: DWORD;
+    dwSettableParams: DWORD;
+    dwSettableBaud: DWORD;
+    wSettableData: Word;
+    wSettableStopParity: Word;
+    dwCurrentTxQueue: DWORD;
+    dwCurrentRxQueue: DWORD;
+    dwProvSpec1: DWORD;
+    dwProvSpec2: DWORD;
+    wcProvChar: array[0..0] of WCHAR;
+  end;
+  
+  We also like to refer to the windows api for more
+  detailed information about TCommProp.
+
+- Renamed SetDTRState to SetDTR
+- Renamed SetRTSState to SetRTS
+- Renamed SetBreakState to SetBreak
+- Renamed SetXonState to SetXon
+
+TVaModem
+--------
+
+- Redesigned parts of the original code. More events and
+  better tuned methods offer more flexibility while 
+  talking to your modem hardware.
+  See also the online help and included examples for detailed
+  information. 
+
+TVaServer
+---------
+
+- Changed OnClientData event in OnClientRxChar
+  This is now equal to the declaration for TVaComm.
+
+TVaBuffer
+---------
+
+- Incoming data was not stored properly, fixed.
+
+
+
+****************************************************
+v1.60
+
+General
+-------
+
+- Introduced new units and revised parts of the
+  original code.
+
+New Components
+--------------
+
+- TVaModem, unit VaModem
+
+New properties & Events
+-----------------------
+
+TVaComm
+-------
+- Update declaration of TVaComm Event
+  Old:
+  TVaCommEvent = (ceBreak, ceCts, ceDsr, ceError, ceRing, ceRlsd, ceData, ceTxEmpty, ceEvent);
+  New:
+  TVaCommEvent = (ceBreak, ceCts, ceDsr, ceError, ceRing, ceRlsd, ceRxChar, ceTxEmpty, ceRxFlag);
+
+  Warning: Make sure you reset the MonitorEvents property in your application!
+
+- Changed OnDataEvent to
+  property OnRxChar: TVaCommRxCharEvent;
+
+- Splitted Thread comm event in a OnLineEvent and a OnDataEvent
+
+- New event OnRxBuf;
+  TVaCommRxBufEvent = procedure(Sender: TObject; const Buf: PChar; Count: Integer) of object;
+  Is called only when a TVaDataSource is connected to the comport component. The
+  data is read from the comport and dispatched through the datasource. After
+  dispatching OnRxBuf is called with the available data as a parameter.
+
+- New property "AutoOpen".
+  property AutoOpen: boolean;
+
+- New property "DeviceName"
+  property DeviceName: string;
+  DeviceName describes the communications portname. If an
+  %d parameter is included the portnumber defined by PortNum
+  is added to the DeviceName when the device is openend.
+
+  PortNum = 2 DeviceName = COM%d -> COM2
+  PortNum = 2 DeviceName = COM1  -> COM1
+
+TVaDataSource
+-------------
+
+- Removed OnData event. See TVaComm.OnRxBuf for more
+  information.
+
+TVaWaitMessage
+--------------
+
+- Now also handles control characters embedded in the
+  Strings property. eg ^M = #13
+
+- Added OnLine property.
+
+TVaBuffer
+---------
+
+- Added OnLine property.
+
+
+Bugfixes
+--------
+
+TVaComm
+-------
+- Fixed error in flowcontrol declaration
+  TVaFlowControl = (fcNone, fcXonXoff, fcRtsCts, fcDtrDsr);
+  Instead of RtsCts control, XonXoff was used.
+
+****************************************************
+
+1.54
+
+General
+-------
+
+- New component TVaDataSource (unit Source)
+
+- New component TVaDataSourceClient (undocumented)
+  General class for datasource/comm links
+
+- New component TVaWaitMessage (unit VaSystem)
+
+- New component TVaBuffer (unit VaBuffer)
+
+- New component TVaServer (unit VaServer)
+
+- New component TVaServerClient (unit VaServer)
+
+TVaComm
+-------
+
+- Added new event OnRx80Full (receiver buffer is 80% full)
+
+- Added new event OnEvent1 (Provider specific event 1)
+
+- Added new event OnEvent2 (Provider specific event 2)
+
+- OnEvent renamed to OnRxFlag (Received certain character)
+
+- Replaced DTREnable to DTRControl flag
+  TVaDTRControl = (dtrDisable, dtrEnable, dtrHandshake);
+  This flag is ignored if FlowControl is set to fcDtrDsr.
+
+- Replaced RTSEnable to RTSControl flag
+  TVaRTSControl = (rtsDisable, rtsEnable, rtsHandshake, rtsToggle);
+  This flag is ignored if FlowControl is set to fcRtsCts.
+
+- Fixed bug in Eventchars component structure.
+
+
+****************************************************
+
+Whats new in Version 1.51
+
+
+- Renamed component from TComm to TVaComm
+  In future releases all components receive the "Va" prefix.
+
+- New general component class TVaSharedComponent (Undocumented),
+  used to link multiple components to the Commport component.
+
+- Added several new units and classes for future releases.
+
+- Updated persistent class TVaCommChars which fixes some bugs
+  from earlier versions.
+
+- Updated internal thread class with a call to ThreadClosed.
+
+- Added global exception handler to internal thread.
+
+- Added new property "Priority".
+
+- Renamed Read procedure to ReadBuf.
+
+- Renamed Write procedure to WriteBuf.
+
+- Added new function WriteText
+  function WriteText(const s: string): Boolean;
+  
+- Added new function ReadText
+  function ReadText: string;
+
+- And many more changes!
+
+- Added a online windows help file.

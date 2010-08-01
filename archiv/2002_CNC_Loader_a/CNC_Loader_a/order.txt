@@ -1,0 +1,139 @@
+****************************************************
+
+     Varian Async32 Components
+
+     Varian Software NL (c) 1996-2001
+     All Rights Reserved
+
+****************************************************
+
+
+Varian Async32 1.82 is available now!
+
+After the latest upgrade, we are now ready to release our newest 
+edition, the 1.82 version. It includes more advanced components
+with clear properties and methods. An easy to understand online
+helpfile is also included.
+
+Varian Async32 is released as freeware but if you would like to
+obtain the source code including full support, you need to 
+register.
+ 
+Varian Async32 comes packed with all of the great components
+and features. In addition, the disk provides example programs 
+and comes with complete documentation in the form of a Windows Help 
+file. The professional edition also comes with the full source code 
+of Varian Async32.
+ 
+A license will include the following:
+
+*  The latest version of the library via Internet E-mail
+
+*  Free bug fixes, new components and upgrades until the 
+   next major release.
+
+*  Free technical support on usage and implementation
+
+
+We have contracted another company, Shareit! Inc, to process any 
+orders you may wish to place with your Visa, American Express, 
+Eurocard/Mastercard  or Diners Club. As soon as ShareIt! proceeds 
+the order and sends us the required information, we will provide 
+you with a password and the url to our download page. 
+
+All prices are in US dollars. Registering entitles you to unlimited 
+free support via E-mail, minor version updates and major version 
+updates for 1 year from date of purchase. The right to use the 
+components, royalty free, in any software product.  You can also 
+order by mail, phone or fax. Visit the Shareit website at 
+www.shareit.com for more information.
+
+If you would like to register Varian Async32, you can do the 
+registration online on the Internet at: 
+
+http://www.varian-software.com
+
+or go directly to http://www.shareit.com and enter the program number: 
+
+131580 - Varian Async32, single user license $39
+Please note that for each additional user a license is required.
+
+If you do not have access to the Internet, you can register via phone, 
+fax or postal mail. Please print out the following form, and fax or mail 
+it to:
+
+ShareIt!
+element 5 AG
+Vogelsanger Str. 78
+D-50823 Köln/Cologne
+Germany 
+tel:	+49 - 221 - 31088-20
+fax:	+49 - 221 - 31088-29
+
+US customers may also order by calling 1-800-903-4152 (orders only please!). 
+US check and cash orders can be sent to our US office at
+
+ShareIt! Inc.
+PO Box 844
+Greensburg, PA 15601-0844
+USA
+tel: +1 (724) 850 - 8186
+fax: +1 (724) 850 - 8187
+(Please pay special attention to the country code!)
+
+
+Registration form for Varian Async32
+
+Program No.: 131580
+
+Number of licenses: ______
+
+Last name: ___________________________________
+
+First name: ____________________________________
+
+Company: ____________________________________
+
+Street and #: ______________________________________
+
+City, State, postal code: ________________________________
+
+Country: _______________________________________
+
+Phone: _____________________________________
+
+Fax: ________________________________________
+
+E-Mail: ______________________________________
+
+
+How would like to receive the full version?
+
+e-mail  -  postal mail
+
+How would you like to pay the registration fee:
+
+credit card - wire transfer - EuroCheque - cash
+
+Credit card information (if applicable)
+
+Credit card: Visa - Eurocard/Mastercard - American Express - Diners Club
+
+Card holder: ________________________________
+
+Card No.: ___________________________________
+
+Date of Expiration : ___________________________________
+
+Date / Signature ___________________________
+
+ 
+Kind regards,
+
+Varian Software NL
+Ettenlandseweg 22c
+8316 RP Marknesse
+The Netherlands
+Email: Info@varian-software.com
+http://www.varian-software.com
+

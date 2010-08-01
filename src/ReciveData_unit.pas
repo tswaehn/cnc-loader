@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ExtCtrls, Led, Buttons, StdCtrls,
-  ComCtrls;
+  ComCtrls, CPortCtl;
 
 type
   TRecive = class(TForm)
@@ -23,6 +23,15 @@ type
     StatusBar1: TStatusBar;
     ereignis_timer: TTimer;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    CheckBox1: TCheckBox;
+    ComLed1: TComLed;
+    Label5: TLabel;
+    ComLed2: TComLed;
+    RTS: TLabel;
+    procedure CheckBox1Click(Sender: TObject);
     procedure led_timerTimer(Sender: TObject);
     procedure empfang;
     procedure Daten_In;
@@ -50,6 +59,15 @@ implementation
 uses main;
 
 {$R *.DFM}
+
+procedure TRecive.CheckBox1Click(Sender: TObject);
+begin
+  if (checkbox1.Checked) then
+    form1.convertSpecialChars := true
+    else
+    form1.convertSpecialChars := false;
+
+end;
 
 procedure TRecive.Daten_In;
 begin

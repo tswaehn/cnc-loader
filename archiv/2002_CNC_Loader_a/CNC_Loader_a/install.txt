@@ -1,0 +1,77 @@
+Installation notes:
+
+To be able to use the components they have to be added 
+in the Delphi-IDE.
+
+Adding the components 
+
+Delphi 3
+1. Run Delphi 3 and select the FILE / OPEN menu item 
+2. Open the file ..\Lib3\Vacomm3.dpk and click Install. 
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+Delphi 4
+1. Run Delphi 4 and select the FILE / OPEN menu item 
+2. Open the file ..\Lib4\Vacomm4.dpk and click Install.
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+Delphi 5
+1. Run Delphi 5 and select the FILE / OPEN menu item 
+2. Open the file ..\Lib5\Vacomm5.dpk and click Install.
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+Delphi 6
+1. Run Delphi 6 and select the FILE / OPEN menu item 
+2. Open the file ..\Delphi6\Vacomm6.dpk and click Install.
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+BCB 4
+1. Run BCB 4 and select the FILE / OPEN menu item 
+2. Open the file ..\Bcb4\Vacommb4.bpk and click Install.
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+BCB 5
+1. Run BCB 5 and select the FILE / OPEN menu item 
+2. Open the file ..\Bcb5\Vacommb5.bpk and click Install.
+3. Choose Environment options from the Tools menu.
+4. Add the directory of vcl to the library path.
+
+The library pages will appear at the end of the current palette.
+
+Installing the help file (Delphi 3)
+
+1.	Copy Vacomm.hlp and Vacomm.cnt to the Delphi Help directory.
+2.	Open Delphi3.cfg with a standard editor.
+3.	At the end of the file add the following line, <:Link Vacomm.hlp>
+4.	Open Delphi3.cnt with a standard editor.
+5.	Add to the "Index section", <:Index Varian Async32=Vacomm.hlp>
+6.	Add to the "Include section", <:include Vacomm.cnt>
+7.	Start Delphi.
+
+
+* All other supported versions
+
+To add your help file use the OpenHelp utility located in 
+\bin\oh.exe (or accessed using Help|Customize in the IDE). 
+You will find information in the OpenHelp.hlp file about 
+using OpenHelp, including adding your help file to the Help 
+System.
+
+* No OpenHelp utility? (standard versions only)
+
+First copy the helpfiles to the help folder. Then you can add 
+the helpfiles manually by editing the following files in the 
+help directory: DELPHIx.ohc, DELPHIx.ohi and DELPHIx.ohl where 
+x stands for version number of your product. The entries you 
+need to make are very straight forward. After changing the files 
+remove all .gid files from the help folder so Delphi will recreate 
+it's index. 
+
+Using BCB look for BCBx.ohc,  BCBx.ohi and BCBx.ohl where x 
+stands for version number of your product.
+

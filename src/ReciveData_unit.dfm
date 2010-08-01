@@ -49,14 +49,67 @@ object Recive: TRecive
   end
   object ereignis_led: TLED
     Left = 136
-    Top = 264
+    Top = 266
   end
   object Label1: TLabel
-    Left = 400
-    Top = 192
+    Left = 376
+    Top = 168
     Width = 32
     Height = 13
     Caption = 'Label1'
+  end
+  object Label2: TLabel
+    Left = 56
+    Top = 240
+    Width = 42
+    Height = 13
+    Caption = 'Empfang'
+  end
+  object Label3: TLabel
+    Left = 56
+    Top = 264
+    Width = 52
+    Height = 13
+    Caption = 'Verbunden'
+  end
+  object Label4: TLabel
+    Left = 168
+    Top = 264
+    Width = 37
+    Height = 13
+    Caption = 'Ereignis'
+  end
+  object ComLed1: TComLed
+    Left = 376
+    Top = 211
+    Width = 25
+    Height = 25
+    ComPort = Form1.ComPort1
+    LedSignal = lsDSR
+    Kind = lkGreenLight
+  end
+  object Label5: TLabel
+    Left = 407
+    Top = 215
+    Width = 21
+    Height = 13
+    Caption = 'CTS'
+  end
+  object ComLed2: TComLed
+    Left = 376
+    Top = 234
+    Width = 25
+    Height = 25
+    ComPort = Form1.ComPort1
+    LedSignal = lsCTS
+    Kind = lkGreenLight
+  end
+  object RTS: TLabel
+    Left = 407
+    Top = 234
+    Width = 22
+    Height = 13
+    Caption = 'RTS'
   end
   object Memo1: TMemo
     Left = 16
@@ -80,17 +133,27 @@ object Recive: TRecive
       item
         Width = 50
       end>
+    ExplicitTop = 286
+  end
+  object CheckBox1: TCheckBox
+    Left = 376
+    Top = 265
+    Width = 137
+    Height = 17
+    Caption = 'Zeige Sonderzeichen'
+    TabOrder = 2
+    OnClick = CheckBox1Click
   end
   object led_timer: TTimer
     Enabled = False
     Interval = 200
     OnTimer = led_timerTimer
-    Left = 376
-    Top = 8
+    Left = 304
+    Top = 248
   end
   object ereignis_timer: TTimer
     OnTimer = ereignis_timerTimer
-    Left = 432
-    Top = 152
+    Left = 312
+    Top = 224
   end
 end

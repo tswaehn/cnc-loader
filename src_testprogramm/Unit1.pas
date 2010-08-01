@@ -51,6 +51,7 @@ procedure TForm1.Button2Click(Sender: TObject);
 var
   datei:textfile;
   buf:string;
+  i:integer;
 begin
   memo1.Text := '%'+#13+#10
 +'O2(TESTITZEN-D31    )(B         )(FREI-SCHNAUZE )(16.07.10)'     +#13+#10
@@ -74,9 +75,12 @@ begin
 
   closefile(datei);
 //  comport1.DataBits := dbEight;
-  comport1.WriteStr( text );
+  for i:=1 to length(text) do begin
+    comport1.WriteStr( text[i] );
+  end;
   //comport1.DataBits := dbSeven;
 
+  memo1.lines.add( 'done' );
 end;
 
 procedure TForm1.ComPort1RxChar(Sender: TObject; Count: Integer);

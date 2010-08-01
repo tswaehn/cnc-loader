@@ -73,7 +73,7 @@ object LogBox: TLogBox
     end
     object ComLed3: TComLed
       Left = 3
-      Top = 197
+      Top = 200
       Width = 25
       Height = 25
       ComPort = Form1.ComPort1

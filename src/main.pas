@@ -56,9 +56,9 @@ type
     STARSR20R1: TMenuItem;
     Image1: TImage;
     Bevel2: TBevel;
-    ComPort1: TComPort;
     Log1: TMenuItem;
     N4: TMenuItem;
+    ComPort1: TComPort;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ComPort1TxEmpty(Sender: TObject);
@@ -170,6 +170,7 @@ type
     typ_index: integer;
     Programm_name,
       typ: string; //Maschinentyp
+    convertSpecialChars: boolean;
 
     {für Schnittstelle}
     Settings_For: string;
@@ -350,26 +351,34 @@ end;
 
 procedure TForm1.Check_char(ch: char);
 begin
+  if (ord(ch) >= 128) then begin
+    //ch:= chr( ord(ch)-128);
+  end;
+
   case ch of
-    #0:
+    'a'..'z',
+    'A'..'Z',
+    '0'..'9',
+    '[',']',
+    '(',')',
+    '$', '%',
+    '=',
+    #32,
+    '.'       : recive.memo1.Text := recive.Memo1.text + ch;
+
+    #10 :   begin
+              recive.Memo1.Text := recive.Memo1.text;
+              if (convertSpecialChars) then recive.memo1.text := recive.memo1.text + '<' +IntToStr( ord(ch) )+ '>';
+              recive.memo1.Text:= recive.memo1.Text + #13+#10;
+             end
+
   else
     begin
-      case ch of
-        #10: recive.memo1.text := recive.memo1.text + #13 + #10;
-        //':':recive.memo1.text:=recive.memo1.text+'O';
-        #13:
-      else
-        begin
-          recive.label1.caption := inttostr(strtoint(recive.label1.caption) +
-            1);
-          recive.memo1.text := recive.memo1.text + (ch);
-        end;
+      if (convertSpecialChars) then
+          recive.Memo1.Text := recive.Memo1.text + '<' +IntToStr( ord(ch) )+ '>';
+    end;
+  end;
 
-      end;
-    end; //memo1.text:=memo1.text+ch;
-  end; //CASE
-
-  // edit.text:=edit.text+ch;
 end;
 
 procedure TForm1.Schalte_an;
@@ -542,6 +551,7 @@ begin
   FormCaption := 'CNC Loader    ';
   Programm_Name := 'unbenannt';
   prog_change(false);
+  convertSpecialChars := false;
 end;
 
 procedure TForm1.Set_Port_parameter;
@@ -554,6 +564,7 @@ begin
   Comport1.FlowControl.FlowControl := FlowControl;
   Comport1.Parity.Bits := Parity;
   Comport1.Stopbits := Stopbits;
+
 end;
 
 procedure TForm1.TND1Click(Sender: TObject);
@@ -1005,8 +1016,11 @@ begin
 end;
 
 procedure TForm1.sendText(text: string);
+var
+  buf:string;
 begin
-  //
+  buf:=text;
+  comport1.WriteStr(buf);
 end;
 
 procedure TForm1.sendChar(ch: char);
@@ -1016,7 +1030,10 @@ begin
   //
   //buf := ch;
  // ComPort1.WriteStr( buf );
-  ComPort1.TransmitChar(ch);
+  //ComPort1.TransmitChar(ch);
+  buf := ch;
+  Comport1.WriteStr( buf );
+
   {
     form1.vacomm1.writechar(ch);    //
     rxlabel4.caption:=inttostr(form1.vacomm1.ReadBufSize);
