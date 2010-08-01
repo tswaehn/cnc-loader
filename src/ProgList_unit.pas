@@ -48,7 +48,7 @@ procedure TProgVerzeichnisse.Save_;
 var
   a: integer;
 begin
-  for a := 1 to 11 do
+  for a := 1 to 12 do
   begin
     form1.inifile.writestring('Verzeichnisse', 'Verzeichnis' + inttostr(a),
       grid.cells[1, a]);
@@ -85,6 +85,7 @@ begin
   grid.cells[0, 0] := 'Maschine';
   grid.cells[1, 0] := 'Verzeichnis';
   grid.cells[2, 0] := 'Ext.';
+
   grid.cells[0, 1] := 'TND200';
   grid.cells[0, 2] := 'TNS3042D';
   grid.cells[0, 3] := 'MIYANO BNE51S';
@@ -96,7 +97,9 @@ begin
   grid.cells[0, 9] := 'STAR SV32';
   grid.cells[0, 10] := 'OKUMA LB9';
   grid.cells[0, 11] := 'OKUMA LT10M';
-  for a := 1 to 11 do
+  grid.Cells[0, 12] := 'TNC65';
+
+  for a := 1 to 12 do
   begin
     grid.cells[1, a] := form1.inifile.readstring('Verzeichnisse', 'Verzeichnis'
       + inttostr(a), '');

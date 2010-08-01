@@ -4,7 +4,7 @@ object ProgVerzeichnisse: TProgVerzeichnisse
   BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsDialog
   Caption = 'Programmverzeichnisse'
-  ClientHeight = 257
+  ClientHeight = 300
   ClientWidth = 501
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object ProgVerzeichnisse: TProgVerzeichnisse
   TextHeight = 13
   object SpeedButton1: TSpeedButton
     Left = 168
-    Top = 224
+    Top = 256
     Width = 89
     Height = 25
     Caption = #220'bernehmen'
@@ -28,8 +28,8 @@ object ProgVerzeichnisse: TProgVerzeichnisse
     OnClick = SpeedButton1Click
   end
   object SpeedButton2: TSpeedButton
-    Left = 264
-    Top = 224
+    Left = 263
+    Top = 256
     Width = 89
     Height = 25
     Caption = 'Fertig'
@@ -54,10 +54,10 @@ object ProgVerzeichnisse: TProgVerzeichnisse
     Left = 16
     Top = 16
     Width = 480
-    Height = 196
+    Height = 225
     ColCount = 3
-    DefaultRowHeight = 15
-    RowCount = 12
+    DefaultRowHeight = 16
+    RowCount = 13
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected, goRowSelect]
     ScrollBars = ssNone
     TabOrder = 0
@@ -66,18 +66,5 @@ object ProgVerzeichnisse: TProgVerzeichnisse
       64
       258
       55)
-    RowHeights = (
-      15
-      15
-      15
-      15
-      15
-      15
-      15
-      15
-      15
-      15
-      15
-      15)
   end
 end

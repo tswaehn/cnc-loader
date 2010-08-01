@@ -28,8 +28,8 @@ type
     procedure FormHide(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     function transform(outstr, typ: string): string;
-    function TransFormTND200_(OutStr: string): string;
     function TransFormTND200(OutStr: string): string;
+    function TransFormTNC65(OutStr: string): string;
     function TransFormIndex(OutStr: string): string;
     function TransFormMIYANO(OutStr: string): string;
     function TransFormStandard(OutStr: string): string;
@@ -58,71 +58,11 @@ begin
   TransFormStandard := OutStr;
 end;
 
-function TSend.TransFormTND200_(OutStr: string): string;
-var
-  a, ende1: Integer;
-  text, kopf, fuss: string;
-  i:integer;
-begin
-  // dec 165 == '?' ==   1010 0101
-  // dec 37  == '%' ==   0010 0101
-
-  // dec    'G' =       0110 1011
-
-  kopf:='';
-
-  kopf := kopf + '%';
-
-  for i := 1 to 40 do
-    kopf:= kopf + #0;
-
-  kopf := kopf + #13+#10;
-  kopf := kopf + 'O1000(WARMLAUFEXX      )(WOLFI     )(              )(03.01.00)'+#13+#10;
-
-  kopf := kopf + #0;
-
-//  kopf := kopf + '([1]1]A16540]1000]) '+ #13 + #10;
-
-  fuss := '';
-
-  for i := 1 to 40 do
-    fuss:= fuss + #0;
-
-  fuss := fuss + '%' + #13+#10;
-
-  text := kopf + outstr + fuss;
-
-  {
-  outstr:='%'+#13+#10+outstr;
-  outstr:=outstr+'%';
-  delete(outstr,1, pos ('O',outstr)-1);
-  outstr:=#13+#10+outstr;
-  for a:=1 to 50 do outstr:=#0+outstr;
-  outstr:='%'+outstr;
-  for a:=1 to 50 do outstr:=#0+outstr;
-  ende1:=pos(#10,outstr);
-  kopf:=copy(outstr,1,ende1);
-  delete(outstr,1,ende1);
-
-  ende1:=pos(#10,outstr);
-  kopf:=kopf+copy(outstr,1,ende1);
-  delete(outstr,1,ende1);
-  kopf:=kopf+#0;
-
-  outstr:=kopf+outstr;
-  }
-
-  //for a:=1 to 500 do outstr:=#32+outstr;
-
-  //outstr := '%' + #13 + #10 + outstr + '%' + #13 + #10;
-  TransFormTND200_ := text;
-end;
-
 function TSend.TransFormTND200(OutStr: string): string;
 var
   a, ende1: Integer;
   text, kopf, fuss: string;
-  i:integer;
+  i: integer;
 begin
   // dec 165 == '?' ==   1010 0101
   // dec 37  == '%' ==   0010 0101
@@ -131,31 +71,67 @@ begin
 
   kopf := '';
 
-  kopf:= kopf + '%';
+  kopf := kopf + '%';
 
   for i := 1 to 40 do
-    kopf:= kopf + #0;
+    kopf := kopf + #0;
 
   kopf := kopf + ' ';
-  kopf := kopf + #13+#10;
+  kopf := kopf + #13 + #10;
 
   //kopf := kopf + 'O30(25H6             )(B         )(              )(23.07.10) ' + #13+#10;
 
 //  for i := 1 to 400 do
 //    kopf:= kopf + #0;
 
+  fuss := '';
+
+  for i := 1 to 40 do
+    fuss := fuss + #0;
+
+  fuss := fuss + '%' + #13 + #10;
+
+  text := kopf + outstr + fuss;
+
+  TransFormTND200 := text;
+end;
+
+function TSend.TransFormTNC65(OutStr: string): string;
+var
+  a, ende1: Integer;
+  text, kopf, fuss: string;
+  i: integer;
+begin
+  // dec 165 == '?' ==   1010 0101
+  // dec 37  == '%' ==   0010 0101
+
+  // dec    'G' =       0110 1011
+
+  kopf := '';
+
+  kopf := kopf + '%';
+
+  for i := 1 to 40 do
+    kopf := kopf + #0;
+
+  kopf := kopf + ' ';
+  kopf := kopf + #13 + #10;
+
+  //kopf := kopf + 'O30(25H6             )(B         )(              )(23.07.10) ' + #13+#10;
+
+//  for i := 1 to 400 do
+//    kopf:= kopf + #0;
 
   fuss := '';
 
   for i := 1 to 40 do
-    fuss:= fuss + #0;
+    fuss := fuss + #0;
 
-  fuss := fuss + '%' + #13 +#10;
+  fuss := fuss + '%' + #13 + #10;
 
   text := kopf + outstr + fuss;
 
-
-  TransFormTND200 := text;
+  TransFormTNC65 := text;
 end;
 
 function TSend.TransFormMIYANO(OutStr: string): string;
@@ -184,6 +160,8 @@ function TSend.TransForm(Outstr, typ: string): string;
 begin
   if typ = 'TND200' then
     TransForm := TransFormTND200(outstr)
+  else if typ = 'TNC65' then
+    TransForm := TransFormTNC65(outstr)
   else if typ = 'INDEX ABC' then
     TransForm := TransFormINDEX(outstr)
   else if typ = 'MIYANO BNE51S' then
@@ -199,8 +177,8 @@ var
   aus: string;
   ch: char;
   swap: textfile;
-  k : integer;
-  line:string;
+  k: integer;
+  line: string;
 begin
 
   aus := form1.edit.text; // Lade AusgabeString
@@ -210,24 +188,24 @@ begin
   gauge1.maxvalue := length(aus); //
 
   senden_aktiv := true;
-  k:=0;
-  line:='';
+  k := 0;
+  line := '';
   for a := 1 to length(aus) do //
   begin
     ch := (aus[a]); //  Ausgeben von  AusgabeString -Zeichenweise
-
 
     //if ( ord(ch) < 64) then
     //    ch := chr( ord(ch) + 128 );
 
     line := line + ch;
-    k:=k+1;
-    if (k=8) then begin
+    k := k + 1;
+    if (k = 8) then
+    begin
       line := '';
-      k:=0;
+      k := 0;
       //form1.sendText(line);
     end;
-    form1.sendChar( ch );
+    form1.sendChar(ch);
 
     application.ProcessMessages;
     write(swap, ch);

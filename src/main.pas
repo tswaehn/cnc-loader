@@ -59,6 +59,10 @@ type
     Log1: TMenuItem;
     N4: TMenuItem;
     ComPort1: TComPort;
+    NC651: TMenuItem;
+    RadioButton12: TRadioButton;
+    procedure RadioButton12Click(Sender: TObject);
+    procedure NC651Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ComPort1TxEmpty(Sender: TObject);
@@ -106,7 +110,7 @@ type
     procedure Commsettings1Click(Sender: TObject);
     procedure RxSwitch1Off(Sender: TObject);
     procedure VaComm1Close(Sender: TObject);
-    procedure Check_char(ch: char);
+    function Check_char(ch: char): string;
     procedure SpeedButton1Click(Sender: TObject);
     procedure Save(Dateiname: string);
     procedure SpeedButton3Click(Sender: TObject);
@@ -152,6 +156,9 @@ type
     procedure RadioButton9Click(Sender: TObject);
     procedure RadioButton10Click(Sender: TObject);
     procedure RadioButton11Click(Sender: TObject);
+
+    function convertSpecialChars(text: string): string;
+
   private
     { Private-Deklarationen }
     procedure log(text: string);
@@ -170,7 +177,6 @@ type
     typ_index: integer;
     Programm_name,
       typ: string; //Maschinentyp
-    convertSpecialChars: boolean;
 
     {für Schnittstelle}
     Settings_For: string;
@@ -211,6 +217,7 @@ begin
   radiobutton9.font.color := clblack;
   radiobutton10.font.color := clblack;
   radiobutton11.font.color := clblack;
+  radiobutton12.font.color := clblack;
   button.font.color := clRed;
 end;
 
@@ -349,36 +356,34 @@ begin
   comport1.ShowSetupDialog;
 end;
 
-procedure TForm1.Check_char(ch: char);
+function TForm1.Check_char(ch: char): string;
+var
+  temp: string;
 begin
-  if (ord(ch) >= 128) then begin
+  temp := '';
+
+  if (ord(ch) >= 128) then
+  begin
     //ch:= chr( ord(ch)-128);
   end;
 
   case ch of
     'a'..'z',
-    'A'..'Z',
-    '0'..'9',
-    '[',']',
-    '(',')',
-    '$', '%',
-    '=',
-    #32,
-    '.'       : recive.memo1.Text := recive.Memo1.text + ch;
+      'A'..'Z',
+      '0'..'9',
+      '[', ']',
+      '(', ')',
+      '$', '%',
+      '=',
+      #32,
+      '.': temp := ch;
 
-    #10 :   begin
-              recive.Memo1.Text := recive.Memo1.text;
-              if (convertSpecialChars) then recive.memo1.text := recive.memo1.text + '<' +IntToStr( ord(ch) )+ '>';
-              recive.memo1.Text:= recive.memo1.Text + #13+#10;
-             end
-
-  else
-    begin
-      if (convertSpecialChars) then
-          recive.Memo1.Text := recive.Memo1.text + '<' +IntToStr( ord(ch) )+ '>';
-    end;
+    #10:
+      begin
+        temp := #13 + #10;
+      end
   end;
-
+  Check_char := temp;
 end;
 
 procedure TForm1.Schalte_an;
@@ -551,7 +556,6 @@ begin
   FormCaption := 'CNC Loader    ';
   Programm_Name := 'unbenannt';
   prog_change(false);
-  convertSpecialChars := false;
 end;
 
 procedure TForm1.Set_Port_parameter;
@@ -602,7 +606,7 @@ end;
 
 procedure TForm1.TNS3042D1Click(Sender: TObject);
 begin
-  Settings_for := 'TNS3042D';
+  Settings_for := 'TNC3042D';
   ComSettings.ShowModal;
 
 end;
@@ -612,6 +616,12 @@ begin
   Settings_for := 'MIYANO BNE51S';
   ComSettings.ShowModal;
 
+end;
+
+procedure TForm1.NC651Click(Sender: TObject);
+begin
+  Settings_for := 'TNC65';
+  ComSettings.ShowModal;
 end;
 
 procedure TForm1.INDEXABC1Click(Sender: TObject);
@@ -736,13 +746,21 @@ procedure TForm1.ComPort1RxChar(Sender: TObject; Count: Integer);
 var
   instr: string;
   a: integer;
+  temp: string;
 begin
   log(intToStr(count) + ' zeichen empfangen');
   comport1.ReadStr(instr, count);
+  log(convertSpecialChars(instr));
 
-  inbuf := inbuf + instr;
+  temp := '';
+
+  // prüfe und wandle ggf. zeichen
   for a := 1 to count do
-    check_char(instr[a]);
+  begin
+    temp := temp + check_char(instr[a]);
+  end;
+
+  inbuf := inbuf + temp;
   recive.empfang;
 end;
 
@@ -932,6 +950,11 @@ begin
     typ := radiobutton11.caption;
     typ_index := 11;
   end;
+  if radiobutton12.checked = true then
+  begin
+    typ := radiobutton12.caption;
+    typ_index := 12;
+  end;
 end;
 
 procedure TForm1.Drucken1Click(Sender: TObject);
@@ -1005,6 +1028,11 @@ begin
   mark(radiobutton11);
 end;
 
+procedure TForm1.RadioButton12Click(Sender: TObject);
+begin
+  mark(radiobutton12);
+end;
+
 procedure TForm1.log(text: string);
 begin
   logBox.log(text);
@@ -1015,11 +1043,46 @@ begin
   logBox.Show;
 end;
 
+function TForm1.convertSpecialChars(text: string): string;
+var
+  temp: string;
+  I: Integer;
+  len: integer;
+  ch: char;
+begin
+  len := length(text);
+  temp := '';
+
+  for I := 1 to len do
+  begin
+    ch := text[i];
+
+    case ch of
+      'a'..'z',
+        'A'..'Z',
+        '0'..'9',
+        '[', ']',
+        '(', ')',
+        '$', '%',
+        '=',
+        #32,
+        '.': temp := temp + ch;
+
+    else
+      begin
+        temp := temp + '<' + IntToStr(ord(ch)) + '>';
+      end;
+    end;
+
+  end;
+  convertSpecialChars := temp;
+end;
+
 procedure TForm1.sendText(text: string);
 var
-  buf:string;
+  buf: string;
 begin
-  buf:=text;
+  buf := text;
   comport1.WriteStr(buf);
 end;
 
@@ -1032,7 +1095,7 @@ begin
  // ComPort1.WriteStr( buf );
   //ComPort1.TransmitChar(ch);
   buf := ch;
-  Comport1.WriteStr( buf );
+  Comport1.WriteStr(buf);
 
   {
     form1.vacomm1.writechar(ch);    //

@@ -16,24 +16,13 @@ type
     rxLed: TLED;
     led_timer: TTimer;
     OpenLED: TLED;
-    //RxLabel2: TRxLabel;
-    //RxLabel3: TRxLabel;
-    ereignis_led: TLED;
     //RxLabel4: TRxLabel;
     StatusBar1: TStatusBar;
-    ereignis_timer: TTimer;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
-    CheckBox1: TCheckBox;
-    ComLed1: TComLed;
-    Label5: TLabel;
-    ComLed2: TComLed;
-    RTS: TLabel;
-    procedure CheckBox1Click(Sender: TObject);
     procedure led_timerTimer(Sender: TObject);
-    procedure empfang;
+    procedure empfang();
     procedure Daten_In;
     procedure Daten_Uebernehmen;
     procedure Memo1Change(Sender: TObject);
@@ -44,7 +33,6 @@ type
     procedure RxSwitch1Off(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure Ereignis(art: string);
-    procedure ereignis_timerTimer(Sender: TObject);
   private
     { Private-Deklarationen }
   public
@@ -60,15 +48,6 @@ uses main;
 
 {$R *.DFM}
 
-procedure TRecive.CheckBox1Click(Sender: TObject);
-begin
-  if (checkbox1.Checked) then
-    form1.convertSpecialChars := true
-    else
-    form1.convertSpecialChars := false;
-
-end;
-
 procedure TRecive.Daten_In;
 begin
   speedbutton1.enabled := true;
@@ -77,8 +56,6 @@ end;
 procedure TRecive.Ereignis(art: string);
 begin
   statusbar1.panels[0].text := art;
-  ereignis_led.state := ledon;
-  ereignis_timer.enabled := true;
 end;
 
 procedure TRecive.Daten_Uebernehmen;
@@ -100,8 +77,9 @@ begin
   Form1.edit.text := Memo1.Text;
 end;
 
-procedure TRecive.empfang;
+procedure TRecive.empfang();
 begin
+  memo1.Text:= form1.inbuf;
   rxled.state := ledon;
   led_timer.enabled := true;
 end;
@@ -157,13 +135,6 @@ end;
 procedure TRecive.FormHide(Sender: TObject);
 begin
   form1.schalte_aus;
-end;
-
-procedure TRecive.ereignis_timerTimer(Sender: TObject);
-begin
-  ereignis_led.state := ledoff;
-  statusbar1.panels[0].text := '';
-  ereignis_timer.enabled := false;
 end;
 
 end.

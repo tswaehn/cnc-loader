@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'CNC'
-  ClientHeight = 442
+  ClientHeight = 434
   ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,11 +24,11 @@ object Form1: TForm1
     Left = 633
     Top = 8
     Width = 153
-    Height = 281
+    Height = 305
   end
   object Image1: TImage
-    Left = 672
-    Top = 298
+    Left = 684
+    Top = 319
     Width = 71
     Height = 79
     AutoSize = True
@@ -571,8 +571,8 @@ object Form1: TForm1
       FFFFFFFFFFFFFF000000}
   end
   object Bevel2: TBevel
-    Left = 672
-    Top = 298
+    Left = 684
+    Top = 319
     Width = 71
     Height = 81
   end
@@ -593,7 +593,7 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 423
+    Top = 415
     Width = 794
     Height = 19
     Panels = <
@@ -611,6 +611,7 @@ object Form1: TForm1
         Text = 'Ver. 2.01'
         Width = 50
       end>
+    ExplicitTop = 423
   end
   object RadioButton1: TRadioButton
     Left = 642
@@ -779,9 +780,24 @@ object Form1: TForm1
     TabOrder = 12
     OnClick = RadioButton7Click
   end
+  object RadioButton12: TRadioButton
+    Left = 642
+    Top = 279
+    Width = 129
+    Height = 17
+    Caption = 'TNC65'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 13
+    OnClick = RadioButton12Click
+  end
   object MainMenu1: TMainMenu
-    Left = 640
-    Top = 290
+    Left = 648
+    Top = 346
     object Exit1: TMenuItem
       Caption = 'Exit'
       OnClick = Exit1Click
@@ -796,7 +812,7 @@ object Form1: TForm1
           OnClick = TND1Click
         end
         object TNS3042D1: TMenuItem
-          Caption = 'TNS3042D'
+          Caption = 'TNC3042D'
           OnClick = TNS3042D1Click
         end
         object MIYNO1: TMenuItem
@@ -834,6 +850,10 @@ object Form1: TForm1
         object OKUMALT10M1: TMenuItem
           Caption = 'OKUMA LT10M'
           OnClick = OKUMALT10M1Click
+        end
+        object NC651: TMenuItem
+          Caption = 'TNC65'
+          OnClick = NC651Click
         end
       end
       object N2: TMenuItem
@@ -888,8 +908,8 @@ object Form1: TForm1
   object SaveDialog1: TSaveDialog
     DefaultExt = 'LOG'
     Filter = 'CNC Programm (*.LOG)|*.LOG'
-    Left = 744
-    Top = 330
+    Left = 760
+    Top = 362
   end
   object OpenDialog1: TOpenDialog
     Filter = 'CNC Programme (*.LOG)|*.LOG'
@@ -899,8 +919,8 @@ object Form1: TForm1
   object Timer1: TTimer
     Interval = 500
     OnTimer = Timer1Timer
-    Left = 744
-    Top = 298
+    Left = 760
+    Top = 330
   end
   object ComPort1: TComPort
     BaudRate = br9600
@@ -929,7 +949,7 @@ object Form1: TForm1
     OnRxFlag = ComPort1RxFlag
     OnError = ComPort1Error
     OnRx80Full = ComPort1Rx80Full
-    Left = 640
-    Top = 352
+    Left = 632
+    Top = 360
   end
 end
