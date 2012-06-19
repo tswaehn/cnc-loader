@@ -126,6 +126,7 @@ object Speichern: TSpeichern
     ParentFont = False
     Sorted = True
     TabOrder = 0
+    OnClick = ListBox1Click
   end
   object Edit1: TEdit
     Left = 16

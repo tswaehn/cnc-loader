@@ -101,12 +101,10 @@ var
   a, ende1: Integer;
   text, kopf, fuss: string;
   i: integer;
+  len:integer;
 begin
-  // dec 165 == '?' ==   1010 0101
-  // dec 37  == '%' ==   0010 0101
 
-  // dec    'G' =       0110 1011
-
+  // erstelle kopf
   kopf := '';
 
   kopf := kopf + '%';

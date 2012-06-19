@@ -33,6 +33,9 @@ type
     procedure RxSwitch1Off(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure Ereignis(art: string);
+
+    function charCount( text: string ): integer;
+
   private
     { Private-Deklarationen }
   public
@@ -77,9 +80,37 @@ begin
   Form1.edit.text := Memo1.Text;
 end;
 
+function TRecive.charCount( text: string ): integer;
+var i:integer;
+    len :integer;
+    count:integer;
+    ch : char;
+begin
+    count := 0;
+    len := length( text );
+    for i := 1 to len do begin
+    ch := text[i];
+
+    case ch of
+      'a'..'z',
+        'A'..'Z',
+        '0'..'9',
+        '[', ']',
+        '(', ')',
+        '$', '%',
+        '=',
+        #32,
+        '.': count := count + 1;
+    end;
+
+    end;
+    charCount := count;
+end;
+
 procedure TRecive.empfang();
 begin
   memo1.Text:= form1.inbuf;
+  label1.Caption := IntToStr( charCount( form1.inbuf ) );
   rxled.state := ledon;
   led_timer.enabled := true;
 end;

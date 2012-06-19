@@ -22,6 +22,7 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    procedure ListBox1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure lade_daten;
     procedure FormShow(Sender: TObject);
@@ -66,6 +67,13 @@ begin
   edit1.text := '';
 end;
 
+procedure TSpeichern.ListBox1Click(Sender: TObject);
+var n:integer;
+begin
+  n := listbox1.ItemIndex;
+  edit1.Text:= listbox1.Items[n];
+end;
+
 procedure TSpeichern.SpeedButton2Click(Sender: TObject);
 begin
   modalresult := mrcancel;
@@ -80,11 +88,17 @@ procedure TSpeichern.SpeedButton1Click(Sender: TObject);
 var
   endung: string;
   punkt_pos: integer;
+  temp: string;
 begin
   endung := label3.caption;
   punkt_pos := pos('.', endung);
   delete(endung, 1, punkt_pos - 1);
-  filename := label2.caption + edit1.text + endung;
+
+  temp := edit1.text;
+  punkt_pos := pos('.', temp);
+  if (punkt_pos > 0) then delete( temp, punkt_pos, length(temp)-punkt_pos +1);
+
+  filename := label2.caption + temp + endung;
   modalresult := mrok;
 end;
 
